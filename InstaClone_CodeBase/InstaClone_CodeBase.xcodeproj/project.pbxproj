@@ -21,6 +21,7 @@
 		FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */; };
 		FB9409732AB298D300CB930F /* ProfileImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409722AB298D300CB930F /* ProfileImageViews.swift */; };
 		FB9409752AB2E85900CB930F /* ProfileLabelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */; };
+		FB9409782AB31A3400CB930F /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409772AB31A3400CB930F /* Header.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FB9409722AB298D300CB930F /* ProfileImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViews.swift; sourceTree = "<group>"; };
 		FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabelViews.swift; sourceTree = "<group>"; };
+		FB9409772AB31A3400CB930F /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,9 +132,9 @@
 		FB94096E2AB28A9800CB930F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				FB9409762AB31A0A00CB930F /* Items */,
 				FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */,
-				FB9409722AB298D300CB930F /* ProfileImageViews.swift */,
-				FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */,
+				FB9409772AB31A3400CB930F /* Header.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -144,6 +146,15 @@
 				FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		FB9409762AB31A0A00CB930F /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				FB9409722AB298D300CB930F /* ProfileImageViews.swift */,
+				FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */,
+			);
+			path = Items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +237,7 @@
 				FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */,
 				FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */,
 				FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */,
+				FB9409782AB31A3400CB930F /* Header.swift in Sources */,
 				FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */,
 				FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */,
 				FB4B0CCA2AAFE570004C516B /* InstaClone_CodeBase.xcdatamodeld in Sources */,

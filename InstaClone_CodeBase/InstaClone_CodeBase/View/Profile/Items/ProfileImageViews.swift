@@ -9,7 +9,7 @@ final class ProfileImageViews: UIView {
     weak var delegate: ProfileImageViewDelegate?
 
     // 프로필 이미지 뷰
-    @objc var profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .clear
@@ -46,7 +46,7 @@ final class ProfileImageViews: UIView {
     }()
 
     // + 버튼
-    private lazy var changeImageButton: UIButton = {
+    lazy var changeImageButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.tintColor = .systemBlue
@@ -71,7 +71,7 @@ final class ProfileImageViews: UIView {
 
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(16)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(30)
             make.width.height.equalTo(80)
         }
 

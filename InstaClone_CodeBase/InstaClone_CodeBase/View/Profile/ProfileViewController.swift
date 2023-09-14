@@ -1,27 +1,14 @@
 import SnapKit
 import UIKit
 
-class ProfileViewController: UIViewController, ProfileImageViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, ProfileImageViewDelegate {
     let profileImageStackView = ProfileImageViews()
-    let header = ProfileLabelViews()
+    let label = ProfileLabelViews()
+    let header = Header()
     let imagePicker = UIImagePickerController()
     
-    func didSelectProfileImage() {
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileImageStackView.profileImageView.image = selectedImage
-            dismiss(animated: true, completion: nil)
-        }
-    }
-    
     override func loadView() {
-        view = profileImageStackView
+        view = header
     }
     
     override func viewDidLoad() {
@@ -59,4 +46,22 @@ extension ProfileViewController {
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftLockImageView), leftButton]
         navigationItem.rightBarButtonItem = menuButton
     }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func didSelectProfileImage() {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageStackView.profileImageView.image = selectedImage
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
 }

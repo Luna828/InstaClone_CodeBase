@@ -1,15 +1,9 @@
-//
-//  ProfileLabelView.swift
-//  InstaClone_CodeBase
-//
-//  Created by t2023-m0050 on 2023/09/14.
-//
-
-import UIKit
 import SnapKit
+import UIKit
 
 class ProfileLabelViews: UIView {
-    var postNumberLabel: UILabel = {
+
+    private lazy var postNumberLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
@@ -81,55 +75,57 @@ class ProfileLabelViews: UIView {
     }()
 
     // 게시글 스택뷰
-    private lazy var postStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [postNumberLabel, postLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    // lazy란 만들어내는 그 시점에 메모리에 올리는 것 -> 순서를 위해 쓴다고 생각하면 편함
+    lazy var postStackView: UIStackView = {
+        let postStackView = UIStackView(arrangedSubviews: [
+            postNumberLabel, // 이 인스턴스들이 생성될때까지 기다렸다가 lazy var를 통해 메모리에 stackview를 한번에 메모리에 올린다
+            postLabel
+        ])
+        postStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.alignment = .center
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        postStackView.alignment = .center
+        postStackView.axis = .vertical
+        postStackView.spacing = 2
 
-        return stackView
+        return postStackView
     }()
 
     // 팔로워 스택뷰
-    private lazy var followStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [followerNumberLabel, followerLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var followStackView: UIStackView = {
+        let followStackView = UIStackView(arrangedSubviews: [
+            followerNumberLabel,
+            followerLabel
+        ])
+        followStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.alignment = .center
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        followStackView.alignment = .center
+        followStackView.axis = .vertical
+        followStackView.spacing = 2
 
-        return stackView
+        return followStackView
     }()
 
     // 팔로잉 스택뷰
-    private lazy var followingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [followingNumberLabel, followingLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var followingStackView: UIStackView = {
+        let followingStackView = UIStackView(arrangedSubviews: [
+            followingNumberLabel,
+            followingLabel
+        ])
+        followingStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.alignment = .center
-        stackView.axis = .vertical
-        stackView.spacing = 2
+        followingStackView.alignment = .center
+        followingStackView.axis = .vertical
+        followingStackView.spacing = 2
 
-        return stackView
+        return followingStackView
     }()
 
-    private lazy var profileStackView: UIStackView = {
-        let profileImageViews = ProfileImageViews()
-        let stackView = UIStackView(arrangedSubviews: [profileImageViews, numberStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.spacing = 50
-
-        return stackView
-    }()
-
-    private lazy var numberStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [postStackView, followStackView, followingStackView])
+    lazy var numberStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            postStackView,
+            followStackView,
+            followingStackView
+        ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.axis = .horizontal
@@ -139,10 +135,11 @@ class ProfileLabelViews: UIView {
     }()
 
     private func setupConstraints() {
-        addSubview(profileStackView)
+        addSubview(numberStackView)
 
-        profileStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+        numberStackView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(40)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-45)
         }
     }
 
