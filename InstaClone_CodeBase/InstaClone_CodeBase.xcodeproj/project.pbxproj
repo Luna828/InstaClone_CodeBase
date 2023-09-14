@@ -22,6 +22,7 @@
 		FB9409732AB298D300CB930F /* ProfileImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409722AB298D300CB930F /* ProfileImageViews.swift */; };
 		FB9409752AB2E85900CB930F /* ProfileLabelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */; };
 		FB9409782AB31A3400CB930F /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409772AB31A3400CB930F /* Header.swift */; };
+		FB94097A2AB36FB300CB930F /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409792AB36FB300CB930F /* DescriptionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		FB9409722AB298D300CB930F /* ProfileImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViews.swift; sourceTree = "<group>"; };
 		FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabelViews.swift; sourceTree = "<group>"; };
 		FB9409772AB31A3400CB930F /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		FB9409792AB36FB300CB930F /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			children = (
 				FB9409722AB298D300CB930F /* ProfileImageViews.swift */,
 				FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */,
+				FB9409792AB36FB300CB930F /* DescriptionView.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				FB4B0CC22AAFE570004C516B /* SceneDelegate.swift in Sources */,
 				FB9409752AB2E85900CB930F /* ProfileLabelViews.swift in Sources */,
 				FB9409732AB298D300CB930F /* ProfileImageViews.swift in Sources */,
+				FB94097A2AB36FB300CB930F /* DescriptionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
