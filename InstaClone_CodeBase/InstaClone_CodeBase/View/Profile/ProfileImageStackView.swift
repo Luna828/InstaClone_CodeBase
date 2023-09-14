@@ -8,7 +8,7 @@ class ProfileImageStackView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageView.clipsToBounds = true
         imageView.backgroundColor = .clear
-        imageView.image = UIImage(systemName: "lock.fill")
+        imageView.image = UIImage(named: "moomin")
         //imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.borderWidth = 2.0
@@ -48,7 +48,7 @@ class ProfileImageStackView: UIView {
     private var changeImageButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        btn.tintColor = .systemOrange
+        btn.tintColor = .systemBlue
         btn.clipsToBounds = true
         btn.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
 
@@ -76,8 +76,8 @@ class ProfileImageStackView: UIView {
         }
 
         changeImageButton.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.top).offset(45)
-            make.trailing.equalTo(profileImageView.snp.trailing).offset(5)
+            make.top.equalTo(profileImageView.snp.top).offset(50)
+            make.trailing.equalTo(profileImageView.snp.trailing).offset(3)
         }
         
         
