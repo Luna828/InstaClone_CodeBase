@@ -2,8 +2,6 @@ import SnapKit
 import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate {
-    let profileImageStackView = ProfileImageViews()
-    let label = ProfileLabelViews()
     let header = Header()
     let imagePicker = UIImagePickerController()
     
@@ -15,9 +13,9 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
-        profileImageStackView.setupGesture()
+        header.profileImageView.setupGesture()
         
-        profileImageStackView.delegate = self
+        header.profileImageView.delegate = self
     }
 }
 
@@ -59,7 +57,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            profileImageStackView.profileImageView.image = selectedImage
+            header.profileImageView.profileImageView.image = selectedImage
             dismiss(animated: true, completion: nil)
         }
     }

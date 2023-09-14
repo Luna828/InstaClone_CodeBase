@@ -58,13 +58,6 @@ final class ProfileImageViews: UIView {
         return btn
     }()
 
-    private var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "김은경"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
     private func setupConstraints() {
         addSubview(profileImageView)
         addSubview(changeImageButton)
