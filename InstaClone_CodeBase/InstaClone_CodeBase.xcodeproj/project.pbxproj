@@ -14,9 +14,12 @@
 		FB4B0CCF2AAFE571004C516B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB4B0CCD2AAFE571004C516B /* LaunchScreen.storyboard */; };
 		FB4B0CDE2AAFE86C004C516B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */; };
 		FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */; };
-		FB4B0CE02AAFE86C004C516B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* MainViewController.swift */; };
+		FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */; };
 		FB4B0CE32AAFE94D004C516B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB4B0CE22AAFE94D004C516B /* SnapKit */; };
 		FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D972AB17A2000541728 /* TodoTableViewCell.swift */; };
+		FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */; };
+		FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */; };
+		FB9409732AB298D300CB930F /* ProfileImageStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409722AB298D300CB930F /* ProfileImageStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +32,11 @@
 		FB4B0CD02AAFE571004C516B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		FB4B0CDD2AAFE86C004C516B /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		FB576D972AB17A2000541728 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
+		FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		FB9409722AB298D300CB930F /* ProfileImageStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +70,7 @@
 		FB4B0CBE2AAFE570004C516B /* InstaClone_CodeBase */ = {
 			isa = PBXGroup;
 			children = (
-				FB4B0CD92AAFE608004C516B /* Controller */,
+				FB576D992AB1B7CC00541728 /* ViewModel */,
 				FB4B0CD82AAFE5FD004C516B /* View */,
 				FB4B0CD72AAFE5F2004C516B /* Model */,
 				FB4B0CD62AAFE5D8004C516B /* Resources */,
@@ -94,20 +100,12 @@
 		FB4B0CD82AAFE5FD004C516B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FB576D962AB179F000541728 /* Cell */,
+				FB94096F2AB28AA300CB930F /* Todo */,
+				FB94096E2AB28A9800CB930F /* Profile */,
+				FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */,
 				FB4B0CDA2AAFE628004C516B /* Base.Iproj */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		FB4B0CD92AAFE608004C516B /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				FB4B0CDD2AAFE86C004C516B /* MainViewController.swift */,
-				FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */,
-				FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		FB4B0CDA2AAFE628004C516B /* Base.Iproj */ = {
@@ -118,12 +116,31 @@
 			path = Base.Iproj;
 			sourceTree = "<group>";
 		};
-		FB576D962AB179F000541728 /* Cell */ = {
+		FB576D992AB1B7CC00541728 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */,
+				FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FB94096E2AB28A9800CB930F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */,
+				FB9409722AB298D300CB930F /* ProfileImageStackView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FB94096F2AB28AA300CB930F /* Todo */ = {
 			isa = PBXGroup;
 			children = (
 				FB576D972AB17A2000541728 /* TodoTableViewCell.swift */,
+				FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */,
 			);
-			path = Cell;
+			path = Todo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,13 +219,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4B0CE02AAFE86C004C516B /* MainViewController.swift in Sources */,
+				FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */,
+				FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */,
 				FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */,
+				FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */,
 				FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */,
 				FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */,
 				FB4B0CCA2AAFE570004C516B /* InstaClone_CodeBase.xcdatamodeld in Sources */,
 				FB4B0CDE2AAFE86C004C516B /* TabBarController.swift in Sources */,
 				FB4B0CC22AAFE570004C516B /* SceneDelegate.swift in Sources */,
+				FB9409732AB298D300CB930F /* ProfileImageStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

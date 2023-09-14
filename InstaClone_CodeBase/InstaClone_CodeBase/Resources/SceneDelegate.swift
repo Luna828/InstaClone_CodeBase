@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = TabBarController()
 
         let tabs: [(root: UIViewController, icon: String)] = [
-            (MainViewController(), "checkmark.seal"),
+            (TodoViewController(), "checkmark.seal"),
             (ProfileViewController(), "person"),
         ]
 

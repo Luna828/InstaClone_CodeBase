@@ -1,9 +1,8 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UIViewController {
+class TodoViewController: UIViewController {
     private var tableView: UITableView!
-
     private let sectionNames = ["Work", "Life"]
 
     override func viewDidLoad() {
@@ -62,15 +61,14 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    // UITableViewDataSource 메서드 구현
+extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 데이터 소스의 행 개수를 반환
+        
         return 3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // UITableViewCell을 생성하고 구성하여 반환
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
 
         // cell에 데이터 설정
@@ -81,7 +79,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     // UITableViewDelegate 메서드 구현
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // UITableViewCell의 높이를 설정
+        
         return 50
     }
 
