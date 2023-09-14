@@ -1,23 +1,43 @@
 import SnapKit
 import UIKit
 
-class ProfileViewController: UIViewController {
-    let profileImageStackView = ProfileImageStackView()
+class ProfileViewController: UIViewController, ProfileImageViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    override func viewDidLoad(){
+    let profileImageStackView = ProfileImageViews()
+    let imagePicker = UIImagePickerController()
+    
+    func didSelectProfileImage() {
+        self.imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if info[.originalImage] is UIImage {
+            // 이미지를 업데이트하거나 필요한 작업 수행
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    override func loadView() {
+        view = profileImageStackView
+    }
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
+        profileImageStackView.setupGesture()
         
-
-        view.addSubview(profileImageStackView)
+        profileImageStackView.delegate = self
     }
 }
 
 extension ProfileViewController {
-    //네비게이션 바 버튼들 커스텀 하기
-    private func customNavigationBarButtons(){
-        //왼쪽
+    // 네비게이션 바 버튼들 커스텀 하기
+    private func customNavigationBarButtons() {
+        // 왼쪽
         let leftLockImage = UIImage(systemName: "lock.fill")
         let leftLockImageView = UIImageView(image: leftLockImage)
         leftLockImageView.tintColor = .black
@@ -32,15 +52,11 @@ extension ProfileViewController {
         leftButton.setTitleTextAttributes(attributes, for: .normal)
         leftButton.tintColor = .black
         
-        //오른쪽
+        // 오른쪽
         let menuButton = UIBarButtonItem(image: UIImage(named: "Menu"), style: .plain, target: self, action: nil)
         menuButton.tintColor = .black
-        
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftLockImageView), leftButton]
         navigationItem.rightBarButtonItem = menuButton
     }
-    
-    
-    
 }

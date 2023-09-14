@@ -1,33 +1,34 @@
 import SnapKit
 import UIKit
 
-final class ProfileImageStackView: UIView {
+protocol ProfileImageViewDelegate: AnyObject {
+    func didSelectProfileImage()
+}
+
+final class ProfileImageViews: UIView {
+    weak var delegate: ProfileImageViewDelegate?
+
     // 프로필 이미지 뷰
-    private lazy var profileImageView: UIImageView = {
+    @objc var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        //imageView.clipsToBounds = true
         imageView.backgroundColor = .clear
         imageView.image = UIImage(named: "moomin")
-        //imageView.contentMode = .scaleAspectFill
-        imageView.isUserInteractionEnabled = true
         imageView.layer.borderWidth = 2.0
         imageView.layer.borderColor = UIColor.lightGray.cgColor
-        //imageView.layer.cornerRadius = imageView.frame.width / 2
-        //print(imageView.frame.width
         return imageView
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    //프로필 이미지에 제스처 설정
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        profileImageView.addGestureRecognizer(tapGesture)
+        profileImageView.isUserInteractionEnabled = true
+    }
 
-        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
-        profileImageView.clipsToBounds = true
-        profileImageView.contentMode = .scaleAspectFill
-        
-        changeImageButton.layer.cornerRadius = changeImageButton.frame.size.width / 2
-        changeImageButton.layer.borderWidth = 3.0
-        changeImageButton.layer.borderColor = UIColor.white.cgColor
+    //제스처 클릭 함수실행
+    @objc func profileImageTapped() {
+        delegate?.didSelectProfileImage()
     }
 
     // 그림자 뷰
@@ -51,6 +52,8 @@ final class ProfileImageStackView: UIView {
         btn.tintColor = .systemBlue
         btn.clipsToBounds = true
         btn.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        
+        btn.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
 
         return btn
     }()
@@ -61,13 +64,12 @@ final class ProfileImageStackView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private func setupConstraints(){
+
+    private func setupConstraints() {
         addSubview(profileImageView)
         addSubview(changeImageButton)
-        
+
         profileImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(16)
             make.width.height.equalTo(80)
@@ -79,9 +81,21 @@ final class ProfileImageStackView: UIView {
         }
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
+
+        changeImageButton.layer.cornerRadius = changeImageButton.frame.size.width / 2
+        changeImageButton.layer.borderWidth = 3.0
+        changeImageButton.layer.borderColor = UIColor.white.cgColor
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupConstraints()
     }
 
