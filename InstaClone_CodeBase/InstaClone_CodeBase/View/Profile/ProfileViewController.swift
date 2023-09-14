@@ -2,21 +2,20 @@ import SnapKit
 import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     let profileImageStackView = ProfileImageViews()
     let imagePicker = UIImagePickerController()
     
     func didSelectProfileImage() {
-        self.imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         
-        self.present(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if info[.originalImage] is UIImage {
-            // 이미지를 업데이트하거나 필요한 작업 수행
-            picker.dismiss(animated: true, completion: nil)
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageStackView.profileImageView.image = selectedImage
+            dismiss(animated: true, completion: nil)
         }
     }
     
