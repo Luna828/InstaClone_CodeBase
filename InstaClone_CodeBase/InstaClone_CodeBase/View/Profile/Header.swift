@@ -34,7 +34,7 @@ class Header: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .leading
         stackView.axis = .horizontal
-        stackView.spacing = 15
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -48,12 +48,13 @@ class Header: UIView {
         }
         
         labelStackView.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(30)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
             make.top.equalTo(profileStackView.snp.top).offset(210)
         }
         
+        //여기는 이상하게 안걸리네..
         buttonStackView.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(30)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
             make.top.equalTo(labelStackView.snp.top).offset(80)
         }
     }

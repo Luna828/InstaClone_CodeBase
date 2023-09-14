@@ -58,13 +58,14 @@ final class ProfileImageViews: UIView {
         return btn
     }()
 
+
     private func setupConstraints() {
         addSubview(profileImageView)
         addSubview(changeImageButton)
 
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(30)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(15)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
             make.width.height.equalTo(80)
         }
 

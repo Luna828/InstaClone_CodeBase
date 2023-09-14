@@ -45,18 +45,21 @@ class DescriptionView: UIView {
     var followButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Follow"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     var messageButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Message"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     var moreButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "More"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 }
