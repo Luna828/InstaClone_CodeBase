@@ -3,6 +3,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let profileImageStackView = ProfileImageViews()
+    let header = ProfileLabelViews()
     let imagePicker = UIImagePickerController()
     
     func didSelectProfileImage() {
