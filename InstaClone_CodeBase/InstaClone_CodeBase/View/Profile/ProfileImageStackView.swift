@@ -1,7 +1,7 @@
 import SnapKit
 import UIKit
 
-class ProfileImageStackView: UIView {
+final class ProfileImageStackView: UIView {
     // 프로필 이미지 뷰
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -14,13 +14,13 @@ class ProfileImageStackView: UIView {
         imageView.layer.borderWidth = 2.0
         imageView.layer.borderColor = UIColor.lightGray.cgColor
         //imageView.layer.cornerRadius = imageView.frame.width / 2
-        print(imageView.frame.width)
+        //print(imageView.frame.width
         return imageView
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
@@ -31,7 +31,7 @@ class ProfileImageStackView: UIView {
     }
 
     // 그림자 뷰
-    private var shadowView: UIView = {
+    private lazy var shadowView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = false
@@ -45,7 +45,7 @@ class ProfileImageStackView: UIView {
     }()
 
     // + 버튼
-    private var changeImageButton: UIButton = {
+    private lazy var changeImageButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         btn.tintColor = .systemBlue
@@ -61,13 +61,11 @@ class ProfileImageStackView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    
+    private func setupConstraints(){
         addSubview(profileImageView)
         addSubview(changeImageButton)
-
+        
         profileImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(16)
@@ -79,8 +77,12 @@ class ProfileImageStackView: UIView {
             make.top.equalTo(profileImageView.snp.top).offset(50)
             make.trailing.equalTo(profileImageView.snp.trailing).offset(3)
         }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        
+        setupConstraints()
     }
 
     @available(*, unavailable)
