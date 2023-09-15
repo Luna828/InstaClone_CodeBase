@@ -38,12 +38,14 @@ extension ProfileViewController {
         leftButton.tintColor = .black
         
         // 오른쪽
+        let addFeedButton = UIBarButtonItem(image: UIImage(named: "Plus"), style: .plain, target: self, action: nil)
         let menuButton = UIBarButtonItem(image: UIImage(named: "Menu"), style: .plain, target: self, action: nil)
-        //let addFeedButton = UIBarButtonItem(image: UIImage(named: "Plus"), style: .plain, target: self, action: <#T##Selector?#>)
+        addFeedButton.tintColor = .black
+        addFeedButton.width = 20
         menuButton.tintColor = .black
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftLockImageView), leftButton]
-        navigationItem.rightBarButtonItem = menuButton
+        navigationItem.rightBarButtonItems = [menuButton,addFeedButton]
     }
 }
 
