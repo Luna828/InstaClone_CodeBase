@@ -1,27 +1,25 @@
 import SnapKit
 import UIKit
 
-class MainViewController: UIViewController {
+class TodoViewController: UIViewController {
     private var tableView: UITableView!
-
     private let sectionNames = ["Work", "Life"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let addButton: UIBarButtonItem = {
             let addButton = UIBarButtonItem(
-               barButtonSystemItem: .add,
-               target: self,
-               action: #selector(addButtonTapped)
+                barButtonSystemItem: .add,
+                target: self,
+                action: #selector(addButtonTapped)
             )
-           return addButton
-       }()
+            return addButton
+        }()
 
-        
         navigationController?.navigationBar.tintColor = .black
-        self.navigationItem.rightBarButtonItem = addButton
-        
+        navigationItem.rightBarButtonItem = addButton
+
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
@@ -30,21 +28,47 @@ class MainViewController: UIViewController {
 
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoTableCell")
     }
-    
-    @objc func addButtonTapped(){
-        print("와우")
+
+    @objc func addButtonTapped() {
+        let alertController = UIAlertController(title: "Todo 생성", message: nil, preferredStyle: .alert)
+
+        alertController.addTextField { textField in
+            textField.placeholder = "오늘의 Todo를 입력해주세요"
+        }
+
+        let availableSections = ["Work", "Life"]
+
+        for section in availableSections {
+            alertController.addAction(UIAlertAction(title: section, style: .default) {_ in
+                if let contentField = alertController.textFields?.first,
+                   let content = contentField.text
+                {
+                    if content.isEmpty {
+                        let alertEmpty = UIAlertController(title: "할일을 작성해주세요", message: nil, preferredStyle: .alert)
+                        alertEmpty.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                        self.present(alertEmpty, animated: true, completion: nil)
+                    } else {
+                        // CoreData 연결부분
+                        //let newTodo = Todo(content: content, isCompleted: false)
+                    }
+                }
+            })
+        }
+        
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    // UITableViewDataSource 메서드 구현
+extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 데이터 소스의 행 개수를 반환
+        
         return 3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // UITableViewCell을 생성하고 구성하여 반환
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
 
         // cell에 데이터 설정
@@ -55,7 +79,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     // UITableViewDelegate 메서드 구현
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // UITableViewCell의 높이를 설정
+        
         return 50
     }
 
@@ -81,8 +105,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return headerView
     }
-
-    
 
     // 섹션 헤더 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
