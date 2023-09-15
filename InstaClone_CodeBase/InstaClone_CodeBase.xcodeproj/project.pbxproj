@@ -7,20 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB4A982C2AB48EE500A1B0BB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB4A982B2AB48EE500A1B0BB /* SnapKit */; };
+		FB4A982F2AB48F5400A1B0BB /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4A982D2AB48F5400A1B0BB /* Todo+CoreDataClass.swift */; };
+		FB4A98302AB48F5400A1B0BB /* Todo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4A982E2AB48F5400A1B0BB /* Todo+CoreDataProperties.swift */; };
+		FB4A98312AB48FBC00A1B0BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB4B0CCB2AAFE571004C516B /* Assets.xcassets */; };
 		FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CBF2AAFE570004C516B /* AppDelegate.swift */; };
 		FB4B0CC22AAFE570004C516B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CC12AAFE570004C516B /* SceneDelegate.swift */; };
 		FB4B0CCA2AAFE570004C516B /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CC82AAFE570004C516B /* Todo.xcdatamodeld */; };
 		FB4B0CDE2AAFE86C004C516B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */; };
 		FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */; };
 		FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */; };
-		FB4B0CE32AAFE94D004C516B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB4B0CE22AAFE94D004C516B /* SnapKit */; };
 		FB5072242AB3EE7D00115A68 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072232AB3EE7D00115A68 /* PostView.swift */; };
 		FB5072262AB42BD800115A68 /* PostView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072252AB42BD800115A68 /* PostView +.swift */; };
 		FB5072292AB431AC00115A68 /* UILabel +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072282AB431AC00115A68 /* UILabel +.swift */; };
 		FB50722B2AB4347D00115A68 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722A2AB4347D00115A68 /* UIStackView +.swift */; };
 		FB50722D2AB4384D00115A68 /* UIButton +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722C2AB4384D00115A68 /* UIButton +.swift */; };
 		FB50722F2AB447C200115A68 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722E2AB447C200115A68 /* TodoService.swift */; };
-		FB5072312AB44AF100115A68 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072302AB44AF100115A68 /* Todo+CoreDataClass.swift */; };
 		FB5072352AB473F800115A68 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072342AB473F800115A68 /* DateFormatter.swift */; };
 		FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D972AB17A2000541728 /* TodoTableViewCell.swift */; };
 		FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB4A982D2AB48F5400A1B0BB /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FB4A982E2AB48F5400A1B0BB /* Todo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		FB4B0CBC2AAFE570004C516B /* InstaClone_CodeBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaClone_CodeBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB4B0CBF2AAFE570004C516B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB4B0CC12AAFE570004C516B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +52,6 @@
 		FB50722A2AB4347D00115A68 /* UIStackView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView +.swift"; sourceTree = "<group>"; };
 		FB50722C2AB4384D00115A68 /* UIButton +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton +.swift"; sourceTree = "<group>"; };
 		FB50722E2AB447C200115A68 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
-		FB5072302AB44AF100115A68 /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FB5072342AB473F800115A68 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		FB576D972AB17A2000541728 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
@@ -64,18 +67,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4B0CE32AAFE94D004C516B /* SnapKit in Frameworks */,
+				FB4A982C2AB48EE500A1B0BB /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB4A982A2AB48EE500A1B0BB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FB4B0CB32AAFE56F004C516B = {
 			isa = PBXGroup;
 			children = (
 				FB4B0CBE2AAFE570004C516B /* InstaClone_CodeBase */,
 				FB4B0CBD2AAFE570004C516B /* Products */,
+				FB4A982A2AB48EE500A1B0BB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +123,10 @@
 		FB4B0CD72AAFE5F2004C516B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FB4A982D2AB48F5400A1B0BB /* Todo+CoreDataClass.swift */,
+				FB4A982E2AB48F5400A1B0BB /* Todo+CoreDataProperties.swift */,
 				FB4B0CC82AAFE570004C516B /* Todo.xcdatamodeld */,
 				FB50722E2AB447C200115A68 /* TodoService.swift */,
-				FB5072302AB44AF100115A68 /* Todo+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -207,7 +219,7 @@
 			);
 			name = InstaClone_CodeBase;
 			packageProductDependencies = (
-				FB4B0CE22AAFE94D004C516B /* SnapKit */,
+				FB4A982B2AB48EE500A1B0BB /* SnapKit */,
 			);
 			productName = InstaClone_CodeBase;
 			productReference = FB4B0CBC2AAFE570004C516B /* InstaClone_CodeBase.app */;
@@ -254,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB4A98312AB48FBC00A1B0BB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,14 +284,15 @@
 				FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */,
 				FB5072292AB431AC00115A68 /* UILabel +.swift in Sources */,
 				FB50722F2AB447C200115A68 /* TodoService.swift in Sources */,
+				FB4A98302AB48F5400A1B0BB /* Todo+CoreDataProperties.swift in Sources */,
 				FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */,
+				FB4A982F2AB48F5400A1B0BB /* Todo+CoreDataClass.swift in Sources */,
 				FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */,
 				FB5072262AB42BD800115A68 /* PostView +.swift in Sources */,
 				FB9409782AB31A3400CB930F /* ProfilePageView.swift in Sources */,
 				FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */,
 				FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */,
 				FB4B0CCA2AAFE570004C516B /* Todo.xcdatamodeld in Sources */,
-				FB5072312AB44AF100115A68 /* Todo+CoreDataClass.swift in Sources */,
 				FB4B0CDE2AAFE86C004C516B /* TabBarController.swift in Sources */,
 				FB4B0CC22AAFE570004C516B /* SceneDelegate.swift in Sources */,
 				FB9409752AB2E85900CB930F /* ProfileLabelViews.swift in Sources */,
@@ -509,7 +523,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB4B0CE22AAFE94D004C516B /* SnapKit */ = {
+		FB4A982B2AB48EE500A1B0BB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FB4B0CE12AAFE94D004C516B /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
