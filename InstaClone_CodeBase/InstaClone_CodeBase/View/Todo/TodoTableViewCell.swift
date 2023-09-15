@@ -1,36 +1,46 @@
-//
-//  TodoTableViewCell.swift
-//  InstaClone_CodeBase
-//
-//  Created by t2023-m0050 on 2023/09/13.
-//
-
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
-    var titleLabel: UILabel!
-
+    let leftLabel: UILabel = {
+        let label = UILabel()
+        label.customLabel(text: "MVVM 공부하기", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
+        return label
+    }()
+    
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.customLabel(text: "2023-03-02", textColor: .darkGray, font: UIFont.systemFont(ofSize: 11))
+        return label
+    }()
+    
+    let toggleSwitch: UISwitch = {
+        let toggle = UISwitch()
+        toggle.translatesAutoresizingMaskIntoConstraints = false
+        return toggle
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        // UITableViewCell에 포함될 UI 요소들을 생성하고 구성합니다.
-        titleLabel = UILabel(frame: contentView.bounds)
-        titleLabel.textAlignment = .center
-        contentView.addSubview(titleLabel)
+        
+        // Label 추가
+        contentView.addSubview(leftLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(toggleSwitch)
+        
+        // Auto Layout 설정
+        NSLayoutConstraint.activate([
+            leftLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            leftLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            toggleSwitch.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            toggleSwitch.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            dateLabel.trailingAnchor.constraint(equalTo: toggleSwitch.leadingAnchor, constant: -8),
+            dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
     }
-
-    @available(*, unavailable)
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-//    // UITableViewCell에 데이터를 설정하는 메서드
-//    func configure(with data: YourDataModel) {
-//        titleLabel.text = data.title
-//        // 다른 UI 요소도 설정 가능
-//    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }
