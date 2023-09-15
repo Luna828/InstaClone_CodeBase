@@ -8,5 +8,4 @@ extension UILabel {
         self.textColor = textColor
         self.font = font
     }
-    
 }
