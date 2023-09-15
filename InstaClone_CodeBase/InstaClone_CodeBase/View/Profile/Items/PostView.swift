@@ -6,7 +6,7 @@ protocol buttonTappedDelegate: AnyObject {
 
 extension PostView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        18 // 게시글 갯수
+        18
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -69,7 +69,7 @@ final class PostView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .center // 중앙 정렬 추가
         stackView.axis = .horizontal
-        stackView.spacing = 5
+        stackView.spacing = 10
         stackView.distribution = .fillEqually // 버튼 간격 동일하게 분배
 
         containerView.addSubview(stackView)
@@ -85,6 +85,8 @@ final class PostView: UIView {
     lazy var postsButton: UIButton = {
         let button = UIButton(type: .system)
         configureButton(button, imageName: "Grid", target: self, action: #selector(postsButtonTapped))
+        button.layer.borderWidth = 2.0
+        button.layer.borderColor = UIColor.red.cgColor
         return button
     }()
 
@@ -92,6 +94,9 @@ final class PostView: UIView {
     lazy var taggedPostsButton: UIButton = {
         let button = UIButton(type: .system)
         configureButton(button, imageName: "Tags", target: self, action: #selector(taggedPostsButtonTapped))
+        button.layer.borderWidth = 2.0
+        button.layer.borderColor = UIColor.red.cgColor
+        
         return button
     }()
 
@@ -100,25 +105,8 @@ final class PostView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
-        view.contentMode = .center
         return view
     }()
-    
-//    lazy var postButtonStackView: UIStackView = {
-//       let stackView = UIStackView(arrangedSubviews: [postsButton, line])
-//        stackView.axis = .vertical
-//        stackView.alignment = .center
-//        stackView.distribution = .fill
-//        return stackView
-//    }()
-//
-//    lazy var postButtonStackView: UIStackView = {
-//       let stackView = UIStackView(arrangedSubviews: [taggedPostsButton, line])
-//        stackView.axis = .vertical
-//        stackView.alignment = .center
-//        stackView.distribution = .fill
-//        return stackView
-//    }()
 
     // 게시글 컬렉션뷰
     lazy var postsCollectionView: UICollectionView = {
@@ -144,6 +132,7 @@ final class PostView: UIView {
     // 태그된 게시글
     lazy var taggedPostsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        //story
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
         layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
@@ -168,7 +157,7 @@ final class PostView: UIView {
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
-            self.line.center.x = self.postsButton.center.x
+            self.line.center.x = self.postsButton.center.x + 20
         }
     }
 
@@ -178,7 +167,7 @@ final class PostView: UIView {
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
-            self.line.center.x = self.taggedPostsButton.center.x
+            self.line.center.x = self.taggedPostsButton.center.x + 20
         }
     }
 
