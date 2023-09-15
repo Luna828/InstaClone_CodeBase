@@ -1,38 +1,8 @@
 import UIKit
 
-protocol buttonTappedDelegate: AnyObject {
-    func buttonTapped()
-}
-
-extension PostView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        18
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath)
-
-        cell.backgroundColor = UIColor.lightGray
-
-        return cell
-    }
-}
-
-extension PostView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if collectionView == postsCollectionView {
-            cell.backgroundColor = .systemGray5
-        } else if collectionView == taggedPostsCollectionView {
-            cell.backgroundColor = .systemGray3
-        }
-    }
-}
-
 final class PostView: UIView {
     let screenSize = UIScreen.main.bounds.size
-
-    weak var delegate: buttonTappedDelegate?
-
+    //공통작업빼기
     func configureButton(_ button: UIButton, imageName: String, target: Any, action: Selector) {
         button.translatesAutoresizingMaskIntoConstraints = false
 
@@ -80,13 +50,11 @@ final class PostView: UIView {
 
         return containerView
     }
-
+    
     // Posts 버튼
     lazy var postsButton: UIButton = {
         let button = UIButton(type: .system)
         configureButton(button, imageName: "Grid", target: self, action: #selector(postsButtonTapped))
-        button.layer.borderWidth = 2.0
-        button.layer.borderColor = UIColor.red.cgColor
         return button
     }()
 
@@ -94,9 +62,6 @@ final class PostView: UIView {
     lazy var taggedPostsButton: UIButton = {
         let button = UIButton(type: .system)
         configureButton(button, imageName: "Tags", target: self, action: #selector(taggedPostsButtonTapped))
-        button.layer.borderWidth = 2.0
-        button.layer.borderColor = UIColor.red.cgColor
-        
         return button
     }()
 
@@ -119,10 +84,8 @@ final class PostView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
 
-        // 셀 등록
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "postCell")
 
-        // 데이터 소스 및 델리게이트 설정
         collectionView.dataSource = self
         collectionView.delegate = self
 

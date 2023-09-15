@@ -72,8 +72,6 @@ final class ProfilePageView: UIView {
         
         postView.line.snp.makeConstraints { make in
             make.top.equalTo(postView.postBarItems.snp.bottom)
-//            make.leading.equalTo(postView.postBarItems.snp.leading)
-//            make.trailing.equalTo(postView.postBarItems.snp.trailing)
             make.height.equalTo(1)
             make.width.equalTo(postView.postsButton.snp.width)
             make.centerX.equalTo(postView.postsButton.snp.centerX)
