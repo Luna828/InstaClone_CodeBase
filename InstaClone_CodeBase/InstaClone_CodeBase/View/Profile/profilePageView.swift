@@ -1,10 +1,11 @@
 import SnapKit
 import UIKit
 
-class Header: UIView {
+final class ProfilePageView: UIView {
     let profileImageView = ProfileImageViews()
     let profileLabelView = ProfileLabelViews()
     let descriptionView = DescriptionView()
+    let postView = PostView()
     // 전체 스택뷰
     private lazy var profileStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [profileImageView, profileLabelView])
@@ -42,6 +43,10 @@ class Header: UIView {
         addSubview(profileStackView)
         addSubview(labelStackView)
         addSubview(buttonStackView)
+        addSubview(postView.postBarItems)
+        addSubview(postView.line)
+        addSubview(postView.postsCollectionView)
+        addSubview(postView.taggedPostsCollectionView)
 
         profileStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -52,10 +57,38 @@ class Header: UIView {
             make.top.equalTo(profileStackView.snp.top).offset(210)
         }
         
-        //여기는 이상하게 안걸리네..
         buttonStackView.snp.makeConstraints { make in
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
-            make.top.equalTo(labelStackView.snp.top).offset(80)
+            make.top.equalTo(labelStackView.snp.bottom).offset(10)
+            make.leading.equalTo(labelStackView)
+            make.trailing.equalTo(labelStackView)
+            make.height.equalTo(26)
+        }
+        
+        postView.postBarItems.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.top).offset(40)
+            make.leading.equalTo(buttonStackView)
+            make.trailing.equalTo(buttonStackView)
+        }
+        
+        postView.line.snp.makeConstraints { make in
+            make.top.equalTo(postView.postBarItems.snp.bottom)
+            make.height.equalTo(1)
+            make.width.equalTo(postView.postsButton.snp.width)
+            make.centerX.equalTo(postView.postsButton.snp.centerX)
+        }
+
+        postView.postsCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(postView.postBarItems.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
+
+        postView.taggedPostsCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(postView.postBarItems.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
 

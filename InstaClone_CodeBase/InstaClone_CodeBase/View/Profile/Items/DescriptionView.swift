@@ -1,13 +1,6 @@
-//
-//  discriptionView.swift
-//  InstaClone_CodeBase
-//
-//  Created by t2023-m0050 on 2023/09/15.
-//
-
 import UIKit
 
-class DescriptionView: UIView {
+final class DescriptionView: UIView {
     // 스택뷰 밑의 라벨들 3개
     var nameLabel: UILabel = {
         let label = UILabel()

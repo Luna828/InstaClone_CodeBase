@@ -16,12 +16,13 @@
 		FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */; };
 		FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */; };
 		FB4B0CE32AAFE94D004C516B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FB4B0CE22AAFE94D004C516B /* SnapKit */; };
+		FB5072242AB3EE7D00115A68 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072232AB3EE7D00115A68 /* PostView.swift */; };
 		FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D972AB17A2000541728 /* TodoTableViewCell.swift */; };
 		FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */; };
 		FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */; };
 		FB9409732AB298D300CB930F /* ProfileImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409722AB298D300CB930F /* ProfileImageViews.swift */; };
 		FB9409752AB2E85900CB930F /* ProfileLabelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */; };
-		FB9409782AB31A3400CB930F /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409772AB31A3400CB930F /* Header.swift */; };
+		FB9409782AB31A3400CB930F /* profilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409772AB31A3400CB930F /* profilePageView.swift */; };
 		FB94097A2AB36FB300CB930F /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409792AB36FB300CB930F /* DescriptionView.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,12 +37,13 @@
 		FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
+		FB5072232AB3EE7D00115A68 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		FB576D972AB17A2000541728 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		FB9409722AB298D300CB930F /* ProfileImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViews.swift; sourceTree = "<group>"; };
 		FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabelViews.swift; sourceTree = "<group>"; };
-		FB9409772AB31A3400CB930F /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		FB9409772AB31A3400CB930F /* profilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profilePageView.swift; sourceTree = "<group>"; };
 		FB9409792AB36FB300CB930F /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,9 +136,9 @@
 		FB94096E2AB28A9800CB930F /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				FB9409762AB31A0A00CB930F /* Items */,
 				FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */,
-				FB9409772AB31A3400CB930F /* Header.swift */,
+				FB9409762AB31A0A00CB930F /* Items */,
+				FB9409772AB31A3400CB930F /* profilePageView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -156,6 +158,7 @@
 				FB9409722AB298D300CB930F /* ProfileImageViews.swift */,
 				FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */,
 				FB9409792AB36FB300CB930F /* DescriptionView.swift */,
+				FB5072232AB3EE7D00115A68 /* PostView.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -236,11 +239,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5072242AB3EE7D00115A68 /* PostView.swift in Sources */,
 				FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */,
 				FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */,
 				FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */,
 				FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */,
-				FB9409782AB31A3400CB930F /* Header.swift in Sources */,
+				FB9409782AB31A3400CB930F /* profilePageView.swift in Sources */,
 				FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */,
 				FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */,
 				FB4B0CCA2AAFE570004C516B /* InstaClone_CodeBase.xcdatamodeld in Sources */,

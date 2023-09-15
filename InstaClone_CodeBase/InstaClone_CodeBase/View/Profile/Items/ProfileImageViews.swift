@@ -85,6 +85,8 @@ final class ProfileImageViews: UIView {
         changeImageButton.layer.cornerRadius = changeImageButton.frame.size.width / 2
         changeImageButton.layer.borderWidth = 3.0
         changeImageButton.layer.borderColor = UIColor.white.cgColor
+        
+        
     }
 
     override init(frame: CGRect) {

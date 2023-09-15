@@ -2,20 +2,20 @@ import SnapKit
 import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate {
-    let header = Header()
+    let profilePageView = ProfilePageView()
     let imagePicker = UIImagePickerController()
     
     override func loadView() {
-        view = header
+        view = profilePageView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
-        header.profileImageView.setupGesture()
+        profilePageView.profileImageView.setupGesture()
         
-        header.profileImageView.delegate = self
+        profilePageView.profileImageView.delegate = self
     }
 }
 
@@ -57,7 +57,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            header.profileImageView.profileImageView.image = selectedImage
+            profilePageView.profileImageView.profileImageView.image = selectedImage
             dismiss(animated: true, completion: nil)
         }
     }
