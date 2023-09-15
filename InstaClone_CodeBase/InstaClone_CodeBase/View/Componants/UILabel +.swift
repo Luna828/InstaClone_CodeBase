@@ -2,11 +2,11 @@ import UIKit
 
 extension UILabel {
     
-    func profileLabel(text: String, textColor: UIColor, fontSize: CGFloat){
+    func customLabel(text: String, textColor: UIColor, font: UIFont){
         self.text = text
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textColor = textColor
-        self.font = UIFont.systemFont(ofSize: fontSize)
+        self.font = font
     }
     
 }

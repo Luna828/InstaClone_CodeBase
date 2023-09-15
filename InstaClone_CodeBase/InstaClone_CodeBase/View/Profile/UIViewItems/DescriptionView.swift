@@ -4,34 +4,19 @@ final class DescriptionView: UIView {
     // 스택뷰 밑의 라벨들 3개
     var nameLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "김은경"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.customLabel(text: "김은경", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
         return label
     }()
     
     var descriptionLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "iOS Developer🍎"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.customLabel(text: "iOS Developer🍎", textColor: .black, font: UIFont.systemFont(ofSize: 15))
         return label
     }()
     
     var websiteLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "https://github.com/Luna828"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+        label.customLabel(text: "https://github.com/Luna828", textColor: .blue, font: UIFont.systemFont(ofSize: 15))
         return label
     }()
     

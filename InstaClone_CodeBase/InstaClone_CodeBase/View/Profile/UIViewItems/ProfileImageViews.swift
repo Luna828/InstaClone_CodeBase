@@ -19,46 +19,33 @@ final class ProfileImageViews: UIView {
         return imageView
     }()
     
+    // + 버튼
+    lazy var changeImageButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+        btn.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
+        btn.customeButton(
+            tintColor: .systemBlue,
+            clipsToBounds: true,
+            frame: CGRect(x: 0, y: 0, width: 80, height: 80)
+        )
+        return btn
+    }()
+
     //프로필 이미지에 제스처 설정
     func setupGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImageView.addGestureRecognizer(tapGesture)
         profileImageView.isUserInteractionEnabled = true
     }
-
+    
+//======================================== 함수 및 AutoLayout 구현 ========================================
+    
     //제스처 클릭 함수실행
     @objc func profileImageTapped() {
         delegate?.didSelectProfileImage()
     }
-
-    // 그림자 뷰
-    private lazy var shadowView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowOffset = CGSize(width: 2, height: 2)
-        view.layer.shadowRadius = 7
-        view.layer.cornerRadius = 50
-
-        return view
-    }()
-
-    // + 버튼
-    lazy var changeImageButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        btn.tintColor = .systemBlue
-        btn.clipsToBounds = true
-        btn.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
-        
-        btn.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
-
-        return btn
-    }()
-
-
+    
     private func setupConstraints() {
         addSubview(profileImageView)
         addSubview(changeImageButton)
@@ -77,7 +64,6 @@ final class ProfileImageViews: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.contentMode = .scaleAspectFill
@@ -85,13 +71,10 @@ final class ProfileImageViews: UIView {
         changeImageButton.layer.cornerRadius = changeImageButton.frame.size.width / 2
         changeImageButton.layer.borderWidth = 3.0
         changeImageButton.layer.borderColor = UIColor.white.cgColor
-        
-        
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupConstraints()
     }
 

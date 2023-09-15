@@ -5,41 +5,41 @@ class ProfileLabelViews: UIView {
     // 게시 라벨
     private lazy var postNumberLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "0", textColor: .black, fontSize: 17)
+        label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
     }()
 
     private lazy var postLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "게시", textColor: .black, fontSize: 13)
+        label.customLabel(text: "게시", textColor: .black, font: UIFont.systemFont(ofSize: 13))
         return label
     }()
 
     // 팔로우 숫자 라벨
     private lazy var followerNumberLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "0", textColor: .black, fontSize: 17)
+        label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
     }()
 
     // 팔로워 라벨
     private lazy var followerLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "팔로워", textColor: .black, fontSize: 13)
+        label.customLabel(text: "팔로워", textColor: .black, font: UIFont.systemFont(ofSize: 13))
         return label
     }()
 
     // 팔로잉 숫자 라벨
     private lazy var followingNumberLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "0", textColor: .black, fontSize: 17)
+        label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
     }()
 
     // 팔로잉 라벨
     private lazy var followingLabel: UILabel = {
         let label = UILabel()
-        label.profileLabel(text: "팔로잉", textColor: .black, fontSize: 13)
+        label.customLabel(text: "팔로잉", textColor: .black, font: UIFont.systemFont(ofSize: 13))
         return label
     }()
 
