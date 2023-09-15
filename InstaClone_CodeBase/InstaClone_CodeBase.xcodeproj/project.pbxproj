@@ -10,8 +10,6 @@
 		FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CBF2AAFE570004C516B /* AppDelegate.swift */; };
 		FB4B0CC22AAFE570004C516B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CC12AAFE570004C516B /* SceneDelegate.swift */; };
 		FB4B0CCA2AAFE570004C516B /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CC82AAFE570004C516B /* Todo.xcdatamodeld */; };
-		FB4B0CCC2AAFE571004C516B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB4B0CCB2AAFE571004C516B /* Assets.xcassets */; };
-		FB4B0CCF2AAFE571004C516B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB4B0CCD2AAFE571004C516B /* LaunchScreen.storyboard */; };
 		FB4B0CDE2AAFE86C004C516B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDB2AAFE86C004C516B /* TabBarController.swift */; };
 		FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */; };
 		FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */; };
@@ -23,6 +21,7 @@
 		FB50722D2AB4384D00115A68 /* UIButton +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722C2AB4384D00115A68 /* UIButton +.swift */; };
 		FB50722F2AB447C200115A68 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722E2AB447C200115A68 /* TodoService.swift */; };
 		FB5072312AB44AF100115A68 /* Todo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072302AB44AF100115A68 /* Todo+CoreDataClass.swift */; };
+		FB5072352AB473F800115A68 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072342AB473F800115A68 /* DateFormatter.swift */; };
 		FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D972AB17A2000541728 /* TodoTableViewCell.swift */; };
 		FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */; };
 		FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */; };
@@ -50,6 +49,7 @@
 		FB50722C2AB4384D00115A68 /* UIButton +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton +.swift"; sourceTree = "<group>"; };
 		FB50722E2AB447C200115A68 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
 		FB5072302AB44AF100115A68 /* Todo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Todo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FB5072342AB473F800115A68 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		FB576D972AB17A2000541728 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		FB576D9A2AB1B7E500541728 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		FB9409702AB28B0E00CB930F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -145,6 +145,7 @@
 				FB5072282AB431AC00115A68 /* UILabel +.swift */,
 				FB50722A2AB4347D00115A68 /* UIStackView +.swift */,
 				FB50722C2AB4384D00115A68 /* UIButton +.swift */,
+				FB5072342AB473F800115A68 /* DateFormatter.swift */,
 			);
 			path = Componants;
 			sourceTree = "<group>";
@@ -253,8 +254,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4B0CCF2AAFE571004C516B /* LaunchScreen.storyboard in Resources */,
-				FB4B0CCC2AAFE571004C516B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +267,7 @@
 				FB5072242AB3EE7D00115A68 /* PostView.swift in Sources */,
 				FB576D9B2AB1B7E500541728 /* TodoViewModel.swift in Sources */,
 				FB50722B2AB4347D00115A68 /* UIStackView +.swift in Sources */,
+				FB5072352AB473F800115A68 /* DateFormatter.swift in Sources */,
 				FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */,
 				FB5072292AB431AC00115A68 /* UILabel +.swift in Sources */,
 				FB50722F2AB447C200115A68 /* TodoService.swift in Sources */,

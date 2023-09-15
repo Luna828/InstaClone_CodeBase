@@ -3,14 +3,21 @@ import UIKit
 
 class TodoService {
     static let shared = TodoService()
-    private init(){}
+    private init() {}
     
     var mainContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     
-    //READ
-    var todoList = [Todo]()
+    // READ
+    var todoList: [Todo] = []
+    
+    func initializeDummyDataIfNeeded() {
+        if todoList.isEmpty {
+            addNewTodo("MVVM 공부 및 CoreData도..")
+            addNewTodo("12시안에자기")
+        }
+    }
     
     func fetchTodo() {
         let request: NSFetchRequest<Todo> = Todo.fetchRequest()
@@ -27,20 +34,22 @@ class TodoService {
     
     func addNewTodo(_ todo: String) {
         let newTodo = Todo(context: mainContext)
-        newTodo.id = UUID()
-        newTodo.content = todo
-        newTodo.date = Date()
-        newTodo.isChecked = false
+        
+        let truncatedContent = String(todo.prefix(10)) + (todo.count > 10 ? "..." : "")
+        
+        newTodo.setValue(UUID(), forKey: "id")
+        newTodo.setValue(truncatedContent, forKey: "content")
+        newTodo.setValue(Date(), forKey: "date")
+        newTodo.setValue(false, forKey: "isChecked")
         
         todoList.insert(newTodo, at: 0)
         saveContext()
     }
     
-    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Todo")
         container.loadPersistentStores(completionHandler: {
-            (storeDescription, error) in
+            _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved Error \(error), \(error.userInfo)")
             }
@@ -48,7 +57,7 @@ class TodoService {
         return container
     }()
     
-    func saveContext(){
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

@@ -4,10 +4,12 @@ import UIKit
 class TodoViewController: UIViewController {
     private var tableView: UITableView!
     private let sectionNames = ["Work", "Life"]
+    
+    let dateFormatter = DateFormat().formatter
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let addButton: UIBarButtonItem = {
             let addButton = UIBarButtonItem(
                 barButtonSystemItem: .add,
@@ -64,15 +66,15 @@ class TodoViewController: UIViewController {
 extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 3
+        return TodoService.shared.todoList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
-
-        // cell에 데이터 설정
-        // cell.configure(with: yourDataArray[indexPath.row])
+        
+        cell.leftLabel.text = TodoService.shared.todoList[indexPath.row].content
+        cell.dateLabel.text = dateFormatter.string(for: TodoService.shared.todoList[indexPath.row].date)
 
         return cell
     }

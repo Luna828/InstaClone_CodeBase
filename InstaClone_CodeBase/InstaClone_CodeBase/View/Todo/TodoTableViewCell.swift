@@ -1,9 +1,13 @@
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
+    let todo = Todo()
+    
     let leftLabel: UILabel = {
         let label = UILabel()
         label.customLabel(text: "MVVM 공부하기", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
+        label.numberOfLines = 1
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
