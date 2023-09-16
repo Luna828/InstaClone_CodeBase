@@ -4,12 +4,12 @@ import UIKit
 class TodoViewController: UIViewController {
     private var tableView: UITableView!
     private let sectionNames = ["Work", "Life"]
-    
+
     let dateFormatter = DateFormat().formatter
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let addButton: UIBarButtonItem = {
             let addButton = UIBarButtonItem(
                 barButtonSystemItem: .add,
@@ -29,6 +29,12 @@ class TodoViewController: UIViewController {
         view.addSubview(tableView)
 
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoTableCell")
+
+        for sectionName in sectionNames {
+            TodoService.shared.fetchTodo(for: sectionName)
+        }
+
+        tableView.reloadData()
     }
 
     @objc func addButtonTapped() {
@@ -41,7 +47,7 @@ class TodoViewController: UIViewController {
         let availableSections = ["Work", "Life"]
 
         for section in availableSections {
-            alertController.addAction(UIAlertAction(title: section, style: .default) {_ in
+            alertController.addAction(UIAlertAction(title: section, style: .default) { _ in
                 if let contentField = alertController.textFields?.first,
                    let content = contentField.text
                 {
@@ -51,37 +57,67 @@ class TodoViewController: UIViewController {
                         self.present(alertEmpty, animated: true, completion: nil)
                     } else {
                         // CoreData 연결부분
-                        //let newTodo = Todo(content: content, isCompleted: false)
+                        let newTodo = Todo(context: TodoService.shared.mainContext)
+                        newTodo.content = content
+                        TodoService.shared.addNewTodo(newTodo, to: section)
+                        print(section)
+                        print(TodoService.shared.todoList)
+                        TodoService.shared.fetchTodo(for: section)
+                        self.tableView.reloadData()
                     }
                 }
             })
         }
-        
+
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
+
         present(alertController, animated: true, completion: nil)
     }
 }
 
 extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionNames.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionNames[section]
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return TodoService.shared.todoList.count
+        let sectionName = sectionNames[section]
+        return TodoService.shared.todoList.filter { $0.section == sectionName }.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
-        
-        cell.leftLabel.text = TodoService.shared.todoList[indexPath.row].content
-        cell.dateLabel.text = dateFormatter.string(for: TodoService.shared.todoList[indexPath.row].date)
+        let sectionName = sectionNames[indexPath.section]
+        let todos = TodoService.shared.todoList
 
+        if sectionName == "Work" {
+            if indexPath.row < todos.filter({ $0.section == "Work" }).count {
+                let workTodos = todos.filter { $0.section == "Work" }
+                cell.leftLabel.text = workTodos[indexPath.row].content
+                cell.dateLabel.text = dateFormatter.string(for: workTodos[indexPath.row].date)
+            } else {
+                cell.leftLabel.text = "No TODO"
+            }
+            return cell
+        } else if sectionName == "Life" {
+            if indexPath.row < todos.filter({ $0.section == "Life" }).count {
+                let lifeTodos = todos.filter { $0.section == "Life" }
+                cell.leftLabel.text = lifeTodos[indexPath.row].content
+                cell.dateLabel.text = dateFormatter.string(for: lifeTodos[indexPath.row].date)
+            } else {
+                cell.leftLabel.text = "No TODO"
+            }
+            return cell
+        }
         return cell
     }
 
     // UITableViewDelegate 메서드 구현
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return 50
     }
 

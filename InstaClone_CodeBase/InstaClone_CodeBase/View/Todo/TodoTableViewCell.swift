@@ -1,7 +1,6 @@
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
-    let todo = Todo()
     
     let leftLabel: UILabel = {
         let label = UILabel()

@@ -12,14 +12,7 @@ class TodoService {
     // READ
     var todoList: [Todo] = []
     
-    func initializeDummyDataIfNeeded() {
-        if todoList.isEmpty {
-            addNewTodo("MVVM 공부 및 CoreData도..")
-            addNewTodo("12시안에자기")
-        }
-    }
-    
-    func fetchTodo() {
+    func fetchTodo(for section: String){
         let request: NSFetchRequest<Todo> = Todo.fetchRequest()
         
         let sortByDateDesc = NSSortDescriptor(key: "date", ascending: false)
@@ -32,17 +25,17 @@ class TodoService {
         }
     }
     
-    func addNewTodo(_ todo: String) {
-        let newTodo = Todo(context: mainContext)
+    func addNewTodo(_ todo: Todo, to section: String) {
+        let truncatedContent = String(todo.content?.prefix(10) ?? "") + (todo.content?.count ?? 0 > 10 ? "..." : "")
         
-        let truncatedContent = String(todo.prefix(10)) + (todo.count > 10 ? "..." : "")
+        todo.section = section
         
-        newTodo.setValue(UUID(), forKey: "id")
-        newTodo.setValue(truncatedContent, forKey: "content")
-        newTodo.setValue(Date(), forKey: "date")
-        newTodo.setValue(false, forKey: "isChecked")
-        
-        todoList.insert(newTodo, at: 0)
+        todo.id = UUID()
+        todo.content = truncatedContent
+        todo.date = Date()
+        todo.isChecked = false
+    
+        todoList.insert(todo, at: 0)
         saveContext()
     }
     

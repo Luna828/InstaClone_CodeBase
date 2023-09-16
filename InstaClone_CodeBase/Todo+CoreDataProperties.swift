@@ -16,6 +16,7 @@ extension Todo {
         return NSFetchRequest<Todo>(entityName: "Todo")
     }
 
+    @NSManaged public var section: String?
     @NSManaged public var content: String?
     @NSManaged public var date: Date?
     @NSManaged public var id: UUID?
