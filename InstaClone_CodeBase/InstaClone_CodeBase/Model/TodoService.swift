@@ -39,6 +39,13 @@ class TodoService {
         saveContext()
     }
     
+    func deleteTodo(_ todo: Todo?){
+        if let todo = todo {
+            mainContext.delete(todo)
+            saveContext()
+        }
+    }
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Todo")
         container.loadPersistentStores(completionHandler: {

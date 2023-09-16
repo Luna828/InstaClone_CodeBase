@@ -75,7 +75,7 @@ class TodoViewController: UIViewController {
     }
 }
 
-extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
+extension TodoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionNames.count
     }
@@ -116,11 +116,6 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    // UITableViewDelegate 메서드 구현
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-
     // 섹션 헤더 뷰 설정
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 20))
@@ -147,5 +142,38 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     // 섹션 헤더 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedTodo = TodoService.shared.todoList.remove(at: indexPath.row)
+            TodoService.shared.deleteTodo(deletedTodo)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            // 해당 섹션 내의 항목이 더 이상 없는지 확인
+            let sectionName = sectionNames[indexPath.section]
+            let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+            if todosInSection.isEmpty {
+                // 해당 섹션에 항목이 없으면 없는 셀을 보여줌 -> 있는 척하는데 없음 ㅋㅋㅋㅋㅋ
+                let indexPathForSection = IndexPath(row: 0, section: indexPath.section)
+                tableView.reloadRows(at: [indexPathForSection], with: .automatic)
+            }
+        }
+    }
+}
+
+extension TodoViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let selectedTodo = TodoService.shared.todoList[indexPath.row]
+            let modalViewController = UpdateTodoViewController()
+            modalViewController.todo = selectedTodo
+            print("selectedTodo: \(selectedTodo)")
+
+            present(modalViewController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }
