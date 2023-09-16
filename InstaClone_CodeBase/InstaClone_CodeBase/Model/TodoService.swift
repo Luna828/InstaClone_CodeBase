@@ -39,6 +39,16 @@ class TodoService {
         saveContext()
     }
     
+    func updateTodo(_ updatedTodo: Todo) {
+        if let index = todoList.firstIndex(where: { $0.id == updatedTodo.id }) {
+
+            todoList[index].content = updatedTodo.content
+            todoList[index].date = Date()
+
+            saveContext()
+        }
+    }
+    
     func deleteTodo(_ todo: Todo?){
         if let todo = todo {
             mainContext.delete(todo)

@@ -1,7 +1,12 @@
 import SnapKit
 import UIKit
 
+protocol UpdateTodoDelegate: AnyObject {
+    func updateTodo()
+}
+
 class UpdateTodoViewController: UIViewController {
+    weak var delegate: UpdateTodoDelegate?
     var todo: Todo?
 
     let cancelButton: UIButton = {
@@ -59,7 +64,18 @@ class UpdateTodoViewController: UIViewController {
     }
         
     @objc func confirmButtonTapped() {
-        
+          if let updatedContent = textView.text {
+
+              if let existingTodo = todo, existingTodo.content != updatedContent {
+                  existingTodo.content = updatedContent
+                  TodoService.shared.updateTodo(existingTodo)
+                  
+              }
+          }
+        delegate?.updateTodo()
+        print("clicked: \(String(describing: delegate?.updateTodo()))")
         dismiss(animated: true, completion: nil)
     }
 }
+
+

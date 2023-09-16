@@ -33,7 +33,6 @@ class TodoViewController: UIViewController {
         for sectionName in sectionNames {
             TodoService.shared.fetchTodo(for: sectionName)
         }
-
         tableView.reloadData()
     }
 
@@ -163,17 +162,29 @@ extension TodoViewController: UITableViewDataSource {
 }
 
 extension TodoViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let selectedTodo = TodoService.shared.todoList[indexPath.row]
-            let modalViewController = UpdateTodoViewController()
-            modalViewController.todo = selectedTodo
-            print("selectedTodo: \(selectedTodo)")
+        let selectedTodo = TodoService.shared.todoList[indexPath.row]
+        let modalViewController = UpdateTodoViewController()
+        modalViewController.todo = selectedTodo
+        //이 설정을 꼭해줘야.. tableView.reload 먹힘
+        modalViewController.delegate = self
 
-            present(modalViewController, animated: true, completion: nil)
+        present(modalViewController, animated: true, completion: nil)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+}
+
+extension TodoViewController: UpdateTodoDelegate {
+    func updateTodo() {
+        print("====")
+        tableView.reloadData()
+    }
+
+    func showUpdateTodoViewController() {
+        let updateTodoVC = UpdateTodoViewController()
+        updateTodoVC.delegate = self
     }
 }
