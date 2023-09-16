@@ -179,7 +179,6 @@ extension TodoViewController: UITableViewDelegate {
 
 extension TodoViewController: UpdateTodoDelegate {
     func updateTodo() {
-        print("====")
         tableView.reloadData()
     }
 

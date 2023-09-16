@@ -4,7 +4,7 @@ class TodoTableViewCell: UITableViewCell {
     
     let leftLabel: UILabel = {
         let label = UILabel()
-        label.customLabel(text: "MVVM 공부하기", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
+        label.customLabel(text: "", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -12,7 +12,7 @@ class TodoTableViewCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.customLabel(text: "2023-03-02", textColor: .darkGray, font: UIFont.systemFont(ofSize: 11))
+        label.customLabel(text: "", textColor: .darkGray, font: UIFont.systemFont(ofSize: 11))
         return label
     }()
     

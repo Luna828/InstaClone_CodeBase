@@ -2,15 +2,20 @@ import UIKit
 
 extension PostView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        18
+        return postFeed.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath)
-
-        cell.backgroundColor = UIColor.lightGray
-
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+            
+            let image = postFeed[indexPath.item]
+            cell.setImage(image!)
+            cell.layer.borderWidth = 2.0
+            cell.layer.borderColor = UIColor.red.cgColor
+            
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
@@ -23,4 +28,3 @@ extension PostView: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-

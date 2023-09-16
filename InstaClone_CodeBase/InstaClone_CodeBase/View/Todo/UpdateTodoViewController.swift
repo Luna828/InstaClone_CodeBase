@@ -73,7 +73,6 @@ class UpdateTodoViewController: UIViewController {
               }
           }
         delegate?.updateTodo()
-        print("clicked: \(String(describing: delegate?.updateTodo()))")
         dismiss(animated: true, completion: nil)
     }
 }

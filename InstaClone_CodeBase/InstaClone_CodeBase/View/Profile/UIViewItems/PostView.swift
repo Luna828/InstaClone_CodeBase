@@ -2,7 +2,11 @@ import UIKit
 
 final class PostView: UIView {
     let screenSize = UIScreen.main.bounds.size
-    
+    var postFeed: [UIImage?] = [
+        UIImage(named: "Grid"),
+        UIImage(named: "Tags")
+    ]
+
     // Posts 버튼
     lazy var postsButton: UIButton = {
         let button = UIButton(type: .system)
@@ -24,7 +28,7 @@ final class PostView: UIView {
         view.backgroundColor = .black
         return view
     }()
-    
+
     // 스택 뷰에 버튼을 감싸는 컨테이너 뷰 추가
     private lazy var buttonContainerView: UIView = {
         let buttons = [postsButton, taggedPostsButton]
@@ -38,7 +42,7 @@ final class PostView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     //================================================== 👇🏻Collection View Custom 시작 ==================================================
 
     // 게시글 컬렉션뷰
@@ -50,12 +54,12 @@ final class PostView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        //collectionView.backgroundColor = .white
 
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "postCell")
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
         collectionView.dataSource = self
-        collectionView.delegate = self
+        //collectionView.delegate = self
 
         return collectionView
     }()
@@ -63,7 +67,7 @@ final class PostView: UIView {
     // 태그된 게시글
     lazy var taggedPostsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        //story
+        // story
         layout.minimumLineSpacing = 1
         layout.minimumInteritemSpacing = 1
         layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
@@ -73,15 +77,15 @@ final class PostView: UIView {
         collectionView.backgroundColor = .white
 
         // 셀 등록
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "postCell")
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
         // 데이터 소스 및 델리게이트 설정
         collectionView.dataSource = self
-        collectionView.delegate = self
+        //collectionView.delegate = self
 
         return collectionView
     }()
-    
+
     // ================================================ 버튼 기능 =====================================================
 
     @objc func postsButtonTapped() {
@@ -103,9 +107,17 @@ final class PostView: UIView {
             self.line.center.x = self.taggedPostsButton.center.x + 20
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        // postsCollectionView의 데이터 소스 및 델리게이트 설정
+            postsCollectionView.dataSource = self
+            postsCollectionView.delegate = self
+            
+            // taggedPostsCollectionView의 데이터 소스 및 델리게이트 설정
+            taggedPostsCollectionView.dataSource = self
+            taggedPostsCollectionView.delegate = self
     }
 
     @available(*, unavailable)
@@ -115,7 +127,7 @@ final class PostView: UIView {
 }
 
 extension PostView {
-    //공통작업 기능
+    // 공통작업 기능
     func configureButton(_ button: UIButton, imageName: String, target: Any, action: Selector) {
         button.translatesAutoresizingMaskIntoConstraints = false
 

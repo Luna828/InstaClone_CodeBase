@@ -3,6 +3,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate {
     let profilePageView = ProfilePageView()
+    let postView = PostView()
     let imagePicker = UIImagePickerController()
     
     override func loadView() {
@@ -16,6 +17,13 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         profilePageView.profileImageView.setupGesture()
         
         profilePageView.profileImageView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        postView.postsCollectionView.reloadData()
+        postView.taggedPostsCollectionView.reloadData()
     }
 }
 
@@ -38,19 +46,22 @@ extension ProfileViewController {
         leftButton.tintColor = .black
         
         // 오른쪽
-        let addFeedButton = UIBarButtonItem(image: UIImage(named: "Plus"), style: .plain, target: self, action: nil)
+        let addFeedButton = UIBarButtonItem(image: UIImage(named: "Plus"), style: .plain, target: self, action: #selector(addImage))
         let menuButton = UIBarButtonItem(image: UIImage(named: "Menu"), style: .plain, target: self, action: nil)
         addFeedButton.tintColor = .black
         addFeedButton.width = 20
         menuButton.tintColor = .black
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftLockImageView), leftButton]
-        navigationItem.rightBarButtonItems = [menuButton,addFeedButton]
+        navigationItem.rightBarButtonItems = [menuButton, addFeedButton]
+    }
+    
+    @objc func addImage() {
+        didSelectProfileImage()
     }
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func didSelectProfileImage() {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
@@ -60,9 +71,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            //프로필 이미지 업데이트
             profilePageView.profileImageView.profileImageView.image = selectedImage
+            
+            postView.postFeed.append(selectedImage)
+            print("나옴? \(postView.postFeed.count)")
+            
             dismiss(animated: true, completion: nil)
         }
     }
-    
 }
