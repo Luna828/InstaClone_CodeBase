@@ -1,7 +1,6 @@
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
-    
     let leftLabel: UILabel = {
         let label = UILabel()
         label.customLabel(text: "", textColor: .black, font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.bold))
@@ -42,7 +41,8 @@ class TodoTableViewCell: UITableViewCell {
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
-    
+
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

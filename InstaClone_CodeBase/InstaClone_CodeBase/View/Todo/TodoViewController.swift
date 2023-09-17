@@ -4,6 +4,7 @@ import UIKit
 class TodoViewController: UIViewController {
     private var tableView: UITableView!
     private let sectionNames = ["Work", "Life"]
+    var todo: Todo?
 
     let dateFormatter = DateFormat().formatter
 
@@ -98,6 +99,8 @@ extension TodoViewController: UITableViewDataSource {
                 let workTodos = todos.filter { $0.section == "Work" }
                 cell.leftLabel.text = workTodos[indexPath.row].content
                 cell.dateLabel.text = dateFormatter.string(for: workTodos[indexPath.row].date)
+                cell.toggleSwitch.isOn = workTodos[indexPath.row].isChecked
+                cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
             } else {
                 cell.leftLabel.text = "No TODO"
             }
@@ -107,12 +110,50 @@ extension TodoViewController: UITableViewDataSource {
                 let lifeTodos = todos.filter { $0.section == "Life" }
                 cell.leftLabel.text = lifeTodos[indexPath.row].content
                 cell.dateLabel.text = dateFormatter.string(for: lifeTodos[indexPath.row].date)
+                cell.toggleSwitch.isOn = lifeTodos[indexPath.row].isChecked
+                cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
             } else {
                 cell.leftLabel.text = "No TODO"
             }
             return cell
         }
         return cell
+    }
+
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        guard let cell = sender.superview?.superview as? TodoTableViewCell else {
+            print("TodoTableCell을 찾을 수 없습니다")
+            return
+        }
+        
+        // 셀에서 indexPath 가져오기
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            print("indexPath를 찾을 수 없습니다")
+            return
+        }
+        
+        let sectionName = sectionNames[indexPath.section]
+        let todosInSection = TodoService.shared.todoList
+        
+        if sectionName == "Work" {
+            if indexPath.row < todosInSection.filter({ $0.section == "Work" }).count {
+                let workTodos = todosInSection.filter { $0.section == "Work" }
+                workTodos[indexPath.row].isChecked = sender.isOn
+                dump(workTodos[indexPath.row].isChecked)
+                TodoService.shared.updateTodo(workTodos[indexPath.row])
+            } else {
+                
+            }
+        } else if sectionName == "Life" {
+            if indexPath.row < todosInSection.filter({ $0.section == "Life" }).count {
+                let lifeTodos = todosInSection.filter { $0.section == "Life" }
+                lifeTodos[indexPath.row].isChecked = sender.isOn
+                dump(lifeTodos[indexPath.row].isChecked)
+                TodoService.shared.updateTodo(lifeTodos[indexPath.row])
+            } else {
+                
+            }
+        }
     }
 
     // 섹션 헤더 뷰 설정
@@ -166,7 +207,7 @@ extension TodoViewController: UITableViewDelegate {
         let selectedTodo = TodoService.shared.todoList[indexPath.row]
         let modalViewController = UpdateTodoViewController()
         modalViewController.todo = selectedTodo
-        //이 설정을 꼭해줘야.. tableView.reload 먹힘
+        // 이 설정을 꼭해줘야.. tableView.reload 먹힘
         modalViewController.delegate = self
 
         present(modalViewController, animated: true, completion: nil)

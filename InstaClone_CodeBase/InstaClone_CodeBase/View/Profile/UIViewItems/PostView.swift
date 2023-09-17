@@ -43,8 +43,7 @@ final class PostView: UIView {
         return stackView
     }()
 
-    //================================================== 👇🏻Collection View Custom 시작 ==================================================
-
+    //================================================== 👇🏻Collection View UI Custom 시작 ==================================================
     // 게시글 컬렉션뷰
     lazy var postsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -54,7 +53,7 @@ final class PostView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        //collectionView.backgroundColor = .white
+        // collectionView.backgroundColor = .white
 
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
@@ -81,13 +80,11 @@ final class PostView: UIView {
 
         // 데이터 소스 및 델리게이트 설정
         collectionView.dataSource = self
-        //collectionView.delegate = self
+        // collectionView.delegate = self
 
         return collectionView
     }()
-
-    // ================================================ 버튼 기능 =====================================================
-
+    // ================================================ 👇🏻 버튼 기능 ===========================================================================
     @objc func postsButtonTapped() {
         postsCollectionView.isHidden = false
         taggedPostsCollectionView.isHidden = true
@@ -110,14 +107,10 @@ final class PostView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        // postsCollectionView의 데이터 소스 및 델리게이트 설정
-            postsCollectionView.dataSource = self
-            postsCollectionView.delegate = self
-            
-            // taggedPostsCollectionView의 데이터 소스 및 델리게이트 설정
-            taggedPostsCollectionView.dataSource = self
-            taggedPostsCollectionView.delegate = self
+        postsCollectionView.dataSource = self
+        postsCollectionView.delegate = self
+        taggedPostsCollectionView.dataSource = self
+        taggedPostsCollectionView.delegate = self
     }
 
     @available(*, unavailable)
@@ -125,6 +118,39 @@ final class PostView: UIView {
         fatalError("ERROR")
     }
 }
+
+// ========================================================== 👇🏻 CollectionView ==============================================================
+
+extension PostView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return postFeed.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(#function)
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+            let image = postFeed[indexPath.item]
+            cell.setImage(image!)
+            cell.layer.borderWidth = 2.0
+            cell.layer.borderColor = UIColor.red.cgColor
+
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+
+extension PostView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if collectionView == postsCollectionView {
+            cell.backgroundColor = .systemGray5
+        } else if collectionView == taggedPostsCollectionView {
+            cell.backgroundColor = .systemGray3
+        }
+    }
+}
+
+//============================================================= 👇🏻 공통작업 기능 =====================================================================
 
 extension PostView {
     // 공통작업 기능

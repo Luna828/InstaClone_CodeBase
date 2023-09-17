@@ -18,7 +18,6 @@
 		FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */; };
 		FB4B0CE02AAFE86C004C516B /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */; };
 		FB5072242AB3EE7D00115A68 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072232AB3EE7D00115A68 /* PostView.swift */; };
-		FB5072262AB42BD800115A68 /* PostView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072252AB42BD800115A68 /* PostView +.swift */; };
 		FB5072292AB431AC00115A68 /* UILabel +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5072282AB431AC00115A68 /* UILabel +.swift */; };
 		FB50722B2AB4347D00115A68 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722A2AB4347D00115A68 /* UIStackView +.swift */; };
 		FB50722D2AB4384D00115A68 /* UIButton +.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB50722C2AB4384D00115A68 /* UIButton +.swift */; };
@@ -49,7 +48,6 @@
 		FB4B0CDC2AAFE86C004C516B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FB4B0CDD2AAFE86C004C516B /* TodoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		FB5072232AB3EE7D00115A68 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		FB5072252AB42BD800115A68 /* PostView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PostView +.swift"; sourceTree = "<group>"; };
 		FB5072282AB431AC00115A68 /* UILabel +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel +.swift"; sourceTree = "<group>"; };
 		FB50722A2AB4347D00115A68 /* UIStackView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView +.swift"; sourceTree = "<group>"; };
 		FB50722C2AB4384D00115A68 /* UIButton +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton +.swift"; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 				FB9409742AB2E85900CB930F /* ProfileLabelViews.swift */,
 				FB9409792AB36FB300CB930F /* DescriptionView.swift */,
 				FB5072232AB3EE7D00115A68 /* PostView.swift */,
-				FB5072252AB42BD800115A68 /* PostView +.swift */,
 				FB6DBB8C2AB5D4E7001A9802 /* PostCell.swift */,
 			);
 			path = UIViewItems;
@@ -295,7 +292,6 @@
 				FB4B0CDF2AAFE86C004C516B /* ProfileViewController.swift in Sources */,
 				FB4A982F2AB48F5400A1B0BB /* Todo+CoreDataClass.swift in Sources */,
 				FB9409712AB28B0E00CB930F /* ProfileViewModel.swift in Sources */,
-				FB5072262AB42BD800115A68 /* PostView +.swift in Sources */,
 				FB9409782AB31A3400CB930F /* ProfilePageView.swift in Sources */,
 				FB576D982AB17A2000541728 /* TodoTableViewCell.swift in Sources */,
 				FB4B0CC02AAFE570004C516B /* AppDelegate.swift in Sources */,

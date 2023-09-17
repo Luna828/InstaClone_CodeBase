@@ -44,6 +44,7 @@ class TodoService {
 
             todoList[index].content = updatedTodo.content
             todoList[index].date = Date()
+            todoList[index].isChecked = updatedTodo.isChecked
 
             saveContext()
         }

@@ -75,6 +75,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             profilePageView.profileImageView.profileImageView.image = selectedImage
             
             postView.postFeed.append(selectedImage)
+            print("postView.postFeed = \(postView.postFeed)")
             print("나옴? \(postView.postFeed.count)")
             
             dismiss(animated: true, completion: nil)
