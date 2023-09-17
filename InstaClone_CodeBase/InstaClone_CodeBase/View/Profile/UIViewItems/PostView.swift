@@ -59,7 +59,7 @@ final class PostView: UIView {
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
         collectionView.dataSource = self
-        //collectionView.delegate = self
+        collectionView.delegate = self
 
         return collectionView
     }()
