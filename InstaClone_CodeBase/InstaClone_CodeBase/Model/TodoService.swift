@@ -27,9 +27,7 @@ class TodoService {
     
     func addNewTodo(_ todo: Todo, to section: String) {
         let truncatedContent = String(todo.content?.prefix(10) ?? "") + (todo.content?.count ?? 0 > 10 ? "..." : "")
-        
         todo.section = section
-        
         todo.id = UUID()
         todo.content = truncatedContent
         todo.date = Date()
@@ -41,11 +39,9 @@ class TodoService {
     
     func updateTodo(_ updatedTodo: Todo) {
         if let index = todoList.firstIndex(where: { $0.id == updatedTodo.id }) {
-
             todoList[index].content = updatedTodo.content
             todoList[index].date = Date()
             todoList[index].isChecked = updatedTodo.isChecked
-
             saveContext()
         }
     }

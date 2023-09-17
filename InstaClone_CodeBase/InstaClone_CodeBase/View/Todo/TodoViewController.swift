@@ -92,30 +92,16 @@ extension TodoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
         let sectionName = sectionNames[indexPath.section]
-        let todos = TodoService.shared.todoList
+        let todos = TodoService.shared.todoList.filter { $0.section == sectionName }
 
-        if sectionName == "Work" {
-            if indexPath.row < todos.filter({ $0.section == "Work" }).count {
-                let workTodos = todos.filter { $0.section == "Work" }
-                cell.leftLabel.text = workTodos[indexPath.row].content
-                cell.dateLabel.text = dateFormatter.string(for: workTodos[indexPath.row].date)
-                cell.toggleSwitch.isOn = workTodos[indexPath.row].isChecked
-                cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
-            } else {
-                cell.leftLabel.text = "No TODO"
-            }
-            return cell
-        } else if sectionName == "Life" {
-            if indexPath.row < todos.filter({ $0.section == "Life" }).count {
-                let lifeTodos = todos.filter { $0.section == "Life" }
-                cell.leftLabel.text = lifeTodos[indexPath.row].content
-                cell.dateLabel.text = dateFormatter.string(for: lifeTodos[indexPath.row].date)
-                cell.toggleSwitch.isOn = lifeTodos[indexPath.row].isChecked
-                cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
-            } else {
-                cell.leftLabel.text = "No TODO"
-            }
-            return cell
+        if indexPath.row < todos.count {
+            let todo = todos[indexPath.row]
+            cell.leftLabel.text = todo.content
+            cell.dateLabel.text = dateFormatter.string(for: todo.date)
+            cell.toggleSwitch.isOn = todo.isChecked
+            cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+        } else {
+            cell.leftLabel.text = "No TODO"
         }
         return cell
     }
@@ -125,34 +111,23 @@ extension TodoViewController: UITableViewDataSource {
             print("TodoTableCell을 찾을 수 없습니다")
             return
         }
-        
+
         // 셀에서 indexPath 가져오기
         guard let indexPath = tableView.indexPath(for: cell) else {
             print("indexPath를 찾을 수 없습니다")
             return
         }
-        
+
         let sectionName = sectionNames[indexPath.section]
-        let todosInSection = TodoService.shared.todoList
-        
-        if sectionName == "Work" {
-            if indexPath.row < todosInSection.filter({ $0.section == "Work" }).count {
-                let workTodos = todosInSection.filter { $0.section == "Work" }
-                workTodos[indexPath.row].isChecked = sender.isOn
-                dump(workTodos[indexPath.row].isChecked)
-                TodoService.shared.updateTodo(workTodos[indexPath.row])
-            } else {
-                
-            }
-        } else if sectionName == "Life" {
-            if indexPath.row < todosInSection.filter({ $0.section == "Life" }).count {
-                let lifeTodos = todosInSection.filter { $0.section == "Life" }
-                lifeTodos[indexPath.row].isChecked = sender.isOn
-                dump(lifeTodos[indexPath.row].isChecked)
-                TodoService.shared.updateTodo(lifeTodos[indexPath.row])
-            } else {
-                
-            }
+        let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+
+        if indexPath.row < todosInSection.count {
+            var updatedTodo: Todo
+            let todo = todosInSection[indexPath.row]
+            todo.isChecked = sender.isOn
+            updatedTodo = todo
+            dump(updatedTodo.isChecked)
+            TodoService.shared.updateTodo(updatedTodo)
         }
     }
 
@@ -162,14 +137,11 @@ extension TodoViewController: UITableViewDataSource {
         headerView.backgroundColor = .white
 
         let titleLabel = UILabel(frame: headerView.bounds)
+        titleLabel.customLabel(text: sectionNames[section], textColor: .black, font: UIFont.systemFont(ofSize: 20, weight: .bold))
         titleLabel.textAlignment = .left
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        titleLabel.text = sectionNames[section]
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         headerView.addSubview(titleLabel)
-
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(headerView).offset(16)
             make.trailing.equalTo(headerView).offset(-16)
@@ -186,12 +158,18 @@ extension TodoViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let deletedTodo = TodoService.shared.todoList.remove(at: indexPath.row)
+            let sectionName = sectionNames[indexPath.section]
+            let selectedTodosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+            guard indexPath.row < selectedTodosInSection.count else {
+                return
+            }
+            let deletedTodo = selectedTodosInSection[indexPath.row]
+
+            // 할 일 삭제 + 테이블 뷰에서 해당 행을 삭제
             TodoService.shared.deleteTodo(deletedTodo)
             tableView.deleteRows(at: [indexPath], with: .fade)
 
             // 해당 섹션 내의 항목이 더 이상 없는지 확인
-            let sectionName = sectionNames[indexPath.section]
             let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
             if todosInSection.isEmpty {
                 // 해당 섹션에 항목이 없으면 없는 셀을 보여줌 -> 있는 척하는데 없음 ㅋㅋㅋㅋㅋ
@@ -204,17 +182,15 @@ extension TodoViewController: UITableViewDataSource {
 
 extension TodoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedTodo = TodoService.shared.todoList[indexPath.row]
-        let modalViewController = UpdateTodoViewController()
-        modalViewController.todo = selectedTodo
-        // 이 설정을 꼭해줘야.. tableView.reload 먹힘
-        modalViewController.delegate = self
+        let sectionName = sectionNames[indexPath.section]
+        let selectedTodos = TodoService.shared.todoList.filter { $0.section == sectionName }
 
-        present(modalViewController, animated: true, completion: nil)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        if indexPath.row < selectedTodos.count {
+            let modalViewController = UpdateTodoViewController()
+            modalViewController.todo = selectedTodos[indexPath.row]
+            modalViewController.delegate = self
+            present(modalViewController, animated: true, completion: nil)
+        }
     }
 }
 
