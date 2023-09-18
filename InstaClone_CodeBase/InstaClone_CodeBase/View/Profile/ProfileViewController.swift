@@ -2,8 +2,9 @@ import SnapKit
 import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate {
+    
     let profilePageView = ProfilePageView()
-    let postView = PostView()
+    //let postView = PostView()
     let imagePicker = UIImagePickerController()
     
     override func loadView() {
@@ -17,13 +18,10 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         profilePageView.profileImageView.setupGesture()
         
         profilePageView.profileImageView.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        postView.postsCollectionView.reloadData()
-        postView.taggedPostsCollectionView.reloadData()
+//        postView.postsCollectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
+//        postView.postsCollectionView.dataSource = self
+//        postView.postsCollectionView.delegate = self
     }
 }
 
@@ -71,12 +69,15 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            //프로필 이미지 업데이트
+            // 프로필 이미지 업데이트
             profilePageView.profileImageView.profileImageView.image = selectedImage
             
-            postView.postFeed.append(selectedImage)
-            print("postView.postFeed = \(postView.postFeed)")
-            print("나옴? \(postView.postFeed.count)")
+            //postView.postFeed.append(selectedImage)
+//            print("postView.postFeed = \(postView.postFeed)")
+//            print("나옴? \(postView.postFeed.count)")
+            
+            profilePageView.postView.postFeed.insert(selectedImage, at: 0)
+            profilePageView.postView.postsCollectionView.reloadData()
             
             dismiss(animated: true, completion: nil)
         }

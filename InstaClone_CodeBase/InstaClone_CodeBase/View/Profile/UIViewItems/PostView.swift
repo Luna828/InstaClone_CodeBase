@@ -53,7 +53,6 @@ final class PostView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        // collectionView.backgroundColor = .white
 
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
@@ -64,30 +63,31 @@ final class PostView: UIView {
     }()
 
     // 태그된 게시글
-    lazy var taggedPostsCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        // story
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
+//    lazy var taggedPostsCollectionView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        // story
+//        layout.minimumLineSpacing = 1
+//        layout.minimumInteritemSpacing = 1
+//        layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
+//
+//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.backgroundColor = .white
+//
+//        // 셀 등록
+//        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
+//
+//        // 데이터 소스 및 델리게이트 설정
+//         collectionView.dataSource = self
+//         collectionView.delegate = self
+//
+//        return collectionView
+//    }()
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-
-        // 셀 등록
-        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
-
-        // 데이터 소스 및 델리게이트 설정
-        collectionView.dataSource = self
-        // collectionView.delegate = self
-
-        return collectionView
-    }()
     // ================================================ 👇🏻 버튼 기능 ===========================================================================
     @objc func postsButtonTapped() {
         postsCollectionView.isHidden = false
-        taggedPostsCollectionView.isHidden = true
+        //taggedPostsCollectionView.isHidden = true
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
@@ -97,7 +97,7 @@ final class PostView: UIView {
 
     @objc func taggedPostsButtonTapped() {
         postsCollectionView.isHidden = true
-        taggedPostsCollectionView.isHidden = false
+        //taggedPostsCollectionView.isHidden = false
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
@@ -109,8 +109,8 @@ final class PostView: UIView {
         super.init(frame: frame)
         postsCollectionView.dataSource = self
         postsCollectionView.delegate = self
-        taggedPostsCollectionView.dataSource = self
-        taggedPostsCollectionView.delegate = self
+//        taggedPostsCollectionView.dataSource = self
+//        taggedPostsCollectionView.delegate = self
     }
 
     @available(*, unavailable)
@@ -119,7 +119,7 @@ final class PostView: UIView {
     }
 }
 
-// ========================================================== 👇🏻 CollectionView ==============================================================
+// ========================================================== 👇🏻 Delegate, DataSource ==============================================================
 
 extension PostView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -144,9 +144,10 @@ extension PostView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if collectionView == postsCollectionView {
             cell.backgroundColor = .systemGray5
-        } else if collectionView == taggedPostsCollectionView {
-            cell.backgroundColor = .systemGray3
         }
+//        } else if collectionView == taggedPostsCollectionView {
+//            cell.backgroundColor = .systemGray3
+//        }
     }
 }
 
