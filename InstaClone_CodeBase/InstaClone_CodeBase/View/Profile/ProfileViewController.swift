@@ -18,10 +18,6 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         profilePageView.profileImageView.setupGesture()
         
         profilePageView.profileImageView.delegate = self
-        
-//        postView.postsCollectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
-//        postView.postsCollectionView.dataSource = self
-//        postView.postsCollectionView.delegate = self
     }
 }
 
@@ -71,11 +67,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             // 프로필 이미지 업데이트
             profilePageView.profileImageView.profileImageView.image = selectedImage
-            
-            //postView.postFeed.append(selectedImage)
-//            print("postView.postFeed = \(postView.postFeed)")
-//            print("나옴? \(postView.postFeed.count)")
-            
             profilePageView.postView.postFeed.insert(selectedImage, at: 0)
             profilePageView.postView.postsCollectionView.reloadData()
             

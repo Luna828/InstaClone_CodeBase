@@ -2,10 +2,7 @@ import UIKit
 
 final class PostView: UIView {
     let screenSize = UIScreen.main.bounds.size
-    var postFeed: [UIImage?] = [
-        UIImage(named: "Grid"),
-        UIImage(named: "Tags")
-    ]
+    var postFeed: [UIImage?] = []
 
     // Posts 버튼
     lazy var postsButton: UIButton = {
@@ -127,12 +124,11 @@ extension PostView: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(#function)
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
             let image = postFeed[indexPath.item]
             cell.setImage(image!)
-            cell.layer.borderWidth = 2.0
-            cell.layer.borderColor = UIColor.red.cgColor
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.lightGray.cgColor
 
             return cell
         }
@@ -145,9 +141,6 @@ extension PostView: UICollectionViewDelegateFlowLayout {
         if collectionView == postsCollectionView {
             cell.backgroundColor = .systemGray5
         }
-//        } else if collectionView == taggedPostsCollectionView {
-//            cell.backgroundColor = .systemGray3
-//        }
     }
 }
 
