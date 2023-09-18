@@ -4,6 +4,9 @@ import UIKit
 class TodoViewController: UIViewController {
     private var tableView: UITableView!
     private let sectionNames = ["Work", "Life"]
+    var todo: Todo?
+
+    let dateFormatter = DateFormat().formatter
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,11 @@ class TodoViewController: UIViewController {
         view.addSubview(tableView)
 
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoTableCell")
+
+        for sectionName in sectionNames {
+            TodoService.shared.fetchTodo(for: sectionName)
+        }
+        tableView.reloadData()
     }
 
     @objc func addButtonTapped() {
@@ -39,7 +47,7 @@ class TodoViewController: UIViewController {
         let availableSections = ["Work", "Life"]
 
         for section in availableSections {
-            alertController.addAction(UIAlertAction(title: section, style: .default) {_ in
+            alertController.addAction(UIAlertAction(title: section, style: .default) { _ in
                 if let contentField = alertController.textFields?.first,
                    let content = contentField.text
                 {
@@ -49,38 +57,78 @@ class TodoViewController: UIViewController {
                         self.present(alertEmpty, animated: true, completion: nil)
                     } else {
                         // CoreData 연결부분
-                        //let newTodo = Todo(content: content, isCompleted: false)
+                        let newTodo = Todo(context: TodoService.shared.mainContext)
+                        newTodo.content = content
+                        TodoService.shared.addNewTodo(newTodo, to: section)
+                        print(section)
+                        print(TodoService.shared.todoList)
+                        TodoService.shared.fetchTodo(for: section)
+                        self.tableView.reloadData()
                     }
                 }
             })
         }
-        
+
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        
+
         present(alertController, animated: true, completion: nil)
     }
 }
 
-extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
+extension TodoViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionNames.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionNames[section]
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 3
+        let sectionName = sectionNames[section]
+        return TodoService.shared.todoList.filter { $0.section == sectionName }.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
+        let sectionName = sectionNames[indexPath.section]
+        let todos = TodoService.shared.todoList.filter { $0.section == sectionName }
 
-        // cell에 데이터 설정
-        // cell.configure(with: yourDataArray[indexPath.row])
-
+        if indexPath.row < todos.count {
+            let todo = todos[indexPath.row]
+            cell.leftLabel.text = todo.content
+            cell.dateLabel.text = dateFormatter.string(for: todo.date)
+            cell.toggleSwitch.isOn = todo.isChecked
+            cell.toggleSwitch.addTarget(self, action: #selector(switchValueChanged), for: .valueChanged)
+        } else {
+            cell.leftLabel.text = "No TODO"
+        }
         return cell
     }
 
-    // UITableViewDelegate 메서드 구현
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 50
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        guard let cell = sender.superview?.superview as? TodoTableViewCell else {
+            print("TodoTableCell을 찾을 수 없습니다")
+            return
+        }
+
+        // 셀에서 indexPath 가져오기
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            print("indexPath를 찾을 수 없습니다")
+            return
+        }
+
+        let sectionName = sectionNames[indexPath.section]
+        let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+
+        if indexPath.row < todosInSection.count {
+            var updatedTodo: Todo
+            let todo = todosInSection[indexPath.row]
+            todo.isChecked = sender.isOn
+            updatedTodo = todo
+            dump(updatedTodo.isChecked)
+            TodoService.shared.updateTodo(updatedTodo)
+        }
     }
 
     // 섹션 헤더 뷰 설정
@@ -89,14 +137,11 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = .white
 
         let titleLabel = UILabel(frame: headerView.bounds)
+        titleLabel.customLabel(text: sectionNames[section], textColor: .black, font: UIFont.systemFont(ofSize: 20, weight: .bold))
         titleLabel.textAlignment = .left
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        titleLabel.text = sectionNames[section]
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         headerView.addSubview(titleLabel)
-
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(headerView).offset(16)
             make.trailing.equalTo(headerView).offset(-16)
@@ -109,5 +154,53 @@ extension TodoViewController: UITableViewDelegate, UITableViewDataSource {
     // 섹션 헤더 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let sectionName = sectionNames[indexPath.section]
+            let selectedTodosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+            guard indexPath.row < selectedTodosInSection.count else {
+                return
+            }
+            let deletedTodo = selectedTodosInSection[indexPath.row]
+
+            // 할 일 삭제 + 테이블 뷰에서 해당 행을 삭제
+            TodoService.shared.deleteTodo(deletedTodo)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            // 해당 섹션 내의 항목이 더 이상 없는지 확인
+            let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
+            if todosInSection.isEmpty {
+                // 해당 섹션에 항목이 없으면 없는 셀을 보여줌 -> 있는 척하는데 없음 ㅋㅋㅋㅋㅋ
+                let indexPathForSection = IndexPath(row: 0, section: indexPath.section)
+                tableView.reloadRows(at: [indexPathForSection], with: .automatic)
+            }
+        }
+    }
+}
+
+extension TodoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sectionName = sectionNames[indexPath.section]
+        let selectedTodos = TodoService.shared.todoList.filter { $0.section == sectionName }
+
+        if indexPath.row < selectedTodos.count {
+            let modalViewController = UpdateTodoViewController()
+            modalViewController.todo = selectedTodos[indexPath.row]
+            modalViewController.delegate = self
+            present(modalViewController, animated: true, completion: nil)
+        }
+    }
+}
+
+extension TodoViewController: UpdateTodoDelegate {
+    func updateTodo() {
+        tableView.reloadData()
+    }
+
+    func showUpdateTodoViewController() {
+        let updateTodoVC = UpdateTodoViewController()
+        updateTodoVC.delegate = self
     }
 }

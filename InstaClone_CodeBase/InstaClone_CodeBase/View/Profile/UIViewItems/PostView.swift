@@ -2,7 +2,8 @@ import UIKit
 
 final class PostView: UIView {
     let screenSize = UIScreen.main.bounds.size
-    
+    var profileViewModel = ProfileViewModel()
+
     // Posts 버튼
     lazy var postsButton: UIButton = {
         let button = UIButton(type: .system)
@@ -24,7 +25,7 @@ final class PostView: UIView {
         view.backgroundColor = .black
         return view
     }()
-    
+
     // 스택 뷰에 버튼을 감싸는 컨테이너 뷰 추가
     private lazy var buttonContainerView: UIView = {
         let buttons = [postsButton, taggedPostsButton]
@@ -38,9 +39,8 @@ final class PostView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    //================================================== 👇🏻Collection View Custom 시작 ==================================================
 
+    //================================================== 👇🏻Collection View UI Custom 시작 ==================================================
     // 게시글 컬렉션뷰
     lazy var postsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -50,9 +50,8 @@ final class PostView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
 
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "postCell")
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -61,32 +60,31 @@ final class PostView: UIView {
     }()
 
     // 태그된 게시글
-    lazy var taggedPostsCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        //story
-        layout.minimumLineSpacing = 1
-        layout.minimumInteritemSpacing = 1
-        layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
+//    lazy var taggedPostsCollectionView: UICollectionView = {
+//        let layout = UICollectionViewFlowLayout()
+//        // story
+//        layout.minimumLineSpacing = 1
+//        layout.minimumInteritemSpacing = 1
+//        layout.itemSize = CGSize(width: (screenSize.width - 2) / 3, height: (screenSize.width - 2) / 3)
+//
+//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.backgroundColor = .white
+//
+//        // 셀 등록
+//        collectionView.register(PostCell.self, forCellWithReuseIdentifier: "postCell")
+//
+//        // 데이터 소스 및 델리게이트 설정
+//         collectionView.dataSource = self
+//         collectionView.delegate = self
+//
+//        return collectionView
+//    }()
 
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-
-        // 셀 등록
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "postCell")
-
-        // 데이터 소스 및 델리게이트 설정
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-        return collectionView
-    }()
-    
-    // ================================================ 버튼 기능 =====================================================
-
+    // ================================================ 👇🏻 버튼 기능 ===========================================================================
     @objc func postsButtonTapped() {
         postsCollectionView.isHidden = false
-        taggedPostsCollectionView.isHidden = true
+        //taggedPostsCollectionView.isHidden = true
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
@@ -96,7 +94,7 @@ final class PostView: UIView {
 
     @objc func taggedPostsButtonTapped() {
         postsCollectionView.isHidden = true
-        taggedPostsCollectionView.isHidden = false
+        //taggedPostsCollectionView.isHidden = false
 
         UIView.animate(withDuration: 0.2) { [weak self] in
             guard let self = self else { return }
@@ -104,8 +102,17 @@ final class PostView: UIView {
         }
     }
     
+    init(profileViewModel: ProfileViewModel) {
+        super.init(frame: .zero)
+        self.profileViewModel = profileViewModel
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        postsCollectionView.dataSource = self
+        postsCollectionView.delegate = self
+//        taggedPostsCollectionView.dataSource = self
+//        taggedPostsCollectionView.delegate = self
     }
 
     @available(*, unavailable)
@@ -114,8 +121,38 @@ final class PostView: UIView {
     }
 }
 
+// ========================================================== 👇🏻 Delegate, DataSource ==============================================================
+
+extension PostView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return profileViewModel.postFeed.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+            let image = profileViewModel.postFeed[indexPath.item]
+            cell.setImage(image!)
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
+
+extension PostView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if collectionView == postsCollectionView {
+            cell.backgroundColor = .systemGray5
+        }
+    }
+}
+
+//============================================================= 👇🏻 공통작업 기능 =====================================================================
+
 extension PostView {
-    //공통작업 기능
+    // 공통작업 기능
     func configureButton(_ button: UIButton, imageName: String, target: Any, action: Selector) {
         button.translatesAutoresizingMaskIntoConstraints = false
 

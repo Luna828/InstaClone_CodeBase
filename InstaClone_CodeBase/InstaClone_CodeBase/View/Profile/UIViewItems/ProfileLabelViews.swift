@@ -3,7 +3,7 @@ import UIKit
 
 class ProfileLabelViews: UIView {
     // 게시 라벨
-    private lazy var postNumberLabel: UILabel = {
+    lazy var postNumberLabel: UILabel = {
         let label = UILabel()
         label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
@@ -16,7 +16,7 @@ class ProfileLabelViews: UIView {
     }()
 
     // 팔로우 숫자 라벨
-    private lazy var followerNumberLabel: UILabel = {
+    lazy var followerNumberLabel: UILabel = {
         let label = UILabel()
         label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
@@ -30,7 +30,7 @@ class ProfileLabelViews: UIView {
     }()
 
     // 팔로잉 숫자 라벨
-    private lazy var followingNumberLabel: UILabel = {
+    lazy var followingNumberLabel: UILabel = {
         let label = UILabel()
         label.customLabel(text: "0", textColor: .black, font: UIFont.systemFont(ofSize: 17))
         return label
@@ -43,12 +43,12 @@ class ProfileLabelViews: UIView {
         return label
     }()
 
-//=============================================== STACK VIEW 시작 ======================================================
-    
+    //=============================================== STACK VIEW 시작 ======================================================
+
     // lazy란 만들어내는 그 시점에 메모리에 올리는 것 -> 순서를 위해 쓴다고 생각하면 편함
     lazy var postStackView: UIStackView = {
-        let postStackView = UIStackView(arrangedSubviews: [postNumberLabel,postLabel])
-           // 이 인스턴스들이 생성될때까지 기다렸다가 lazy var를 통해 메모리에 stackview를 한번에 메모리에 올린다
+        let postStackView = UIStackView(arrangedSubviews: [postNumberLabel, postLabel])
+        // 이 인스턴스들이 생성될때까지 기다렸다가 lazy var를 통해 메모리에 stackview를 한번에 메모리에 올린다
         postStackView.verticalStackView(spacing: 2)
         return postStackView
     }()

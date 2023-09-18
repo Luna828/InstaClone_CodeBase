@@ -14,7 +14,8 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
         profilePageView.profileImageView.setupGesture()
-        
+        [profilePageView.profileLabelView.followerNumberLabel,profilePageView.profileLabelView.followingNumberLabel].forEach { $0?.text = "\(Int.random(in: 100 ... 300))" }
+        //
         profilePageView.profileImageView.delegate = self
     }
 }
@@ -38,16 +39,22 @@ extension ProfileViewController {
         leftButton.tintColor = .black
         
         // 오른쪽
+        let addFeedButton = UIBarButtonItem(image: UIImage(named: "Plus"), style: .plain, target: self, action: #selector(addImage))
         let menuButton = UIBarButtonItem(image: UIImage(named: "Menu"), style: .plain, target: self, action: nil)
+        addFeedButton.tintColor = .black
+        addFeedButton.width = 20
         menuButton.tintColor = .black
         
         navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftLockImageView), leftButton]
-        navigationItem.rightBarButtonItem = menuButton
+        navigationItem.rightBarButtonItems = [menuButton, addFeedButton]
+    }
+    
+    @objc func addImage() {
+        didSelectProfileImage()
     }
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func didSelectProfileImage() {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
@@ -57,9 +64,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            // 프로필 이미지 업데이트
             profilePageView.profileImageView.profileImageView.image = selectedImage
+            profilePageView.postView.profileViewModel.postFeed.insert(selectedImage, at: 0)
+            profilePageView.profileLabelView.postNumberLabel.text = String(profilePageView.postView.profileViewModel.postFeed.count)
+            profilePageView.postView.postsCollectionView.reloadData()
+            
             dismiss(animated: true, completion: nil)
         }
     }
-    
 }

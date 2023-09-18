@@ -1,17 +1,10 @@
-//
-//  AppDelegate.swift
-//  InstaClone_CodeBase
-//
-//  Created by t2023-m0050 on 2023/09/12.
-//
-
 import UIKit
 import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //TodoService.shared.initializeDummyDataIfNeeded()
         return true
     }
 

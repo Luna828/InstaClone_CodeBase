@@ -46,7 +46,7 @@ final class ProfilePageView: UIView {
         addSubview(postView.postBarItems)
         addSubview(postView.line)
         addSubview(postView.postsCollectionView)
-        addSubview(postView.taggedPostsCollectionView)
+        //addSubview(postView.taggedPostsCollectionView)
 
         profileStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -84,12 +84,12 @@ final class ProfilePageView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
 
-        postView.taggedPostsCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(postView.postBarItems.snp.bottom).offset(10)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
-        }
+//        postView.taggedPostsCollectionView.snp.makeConstraints { make in
+//            make.top.equalTo(postView.postBarItems.snp.bottom).offset(10)
+//            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+//            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+//        }
     }
 
     override init(frame: CGRect) {
