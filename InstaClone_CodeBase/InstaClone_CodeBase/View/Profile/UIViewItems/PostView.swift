@@ -2,7 +2,7 @@ import UIKit
 
 final class PostView: UIView {
     let screenSize = UIScreen.main.bounds.size
-    var postFeed: [UIImage?] = []
+    var profileViewModel = ProfileViewModel()
 
     // Posts 버튼
     lazy var postsButton: UIButton = {
@@ -101,7 +101,12 @@ final class PostView: UIView {
             self.line.center.x = self.taggedPostsButton.center.x + 20
         }
     }
-
+    
+    init(profileViewModel: ProfileViewModel) {
+        super.init(frame: .zero)
+        self.profileViewModel = profileViewModel
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         postsCollectionView.dataSource = self
@@ -120,12 +125,12 @@ final class PostView: UIView {
 
 extension PostView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return postFeed.count
+        return profileViewModel.postFeed.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
-            let image = postFeed[indexPath.item]
+            let image = profileViewModel.postFeed[indexPath.item]
             cell.setImage(image!)
             cell.layer.borderWidth = 1.0
             cell.layer.borderColor = UIColor.lightGray.cgColor

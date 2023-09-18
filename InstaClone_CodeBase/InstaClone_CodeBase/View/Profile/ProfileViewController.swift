@@ -2,9 +2,7 @@ import SnapKit
 import UIKit
 
 class ProfileViewController: UIViewController, ProfileImageViewDelegate {
-    
     let profilePageView = ProfilePageView()
-    //let postView = PostView()
     let imagePicker = UIImagePickerController()
     
     override func loadView() {
@@ -16,7 +14,8 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
         profilePageView.profileImageView.setupGesture()
-        
+        [profilePageView.profileLabelView.followerNumberLabel,profilePageView.profileLabelView.followingNumberLabel].forEach { $0?.text = "\(Int.random(in: 100 ... 300))" }
+        //
         profilePageView.profileImageView.delegate = self
     }
 }
@@ -67,7 +66,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             // 프로필 이미지 업데이트
             profilePageView.profileImageView.profileImageView.image = selectedImage
-            profilePageView.postView.postFeed.insert(selectedImage, at: 0)
+            profilePageView.postView.profileViewModel.postFeed.insert(selectedImage, at: 0)
+            profilePageView.profileLabelView.postNumberLabel.text = String(profilePageView.postView.profileViewModel.postFeed.count)
             profilePageView.postView.postsCollectionView.reloadData()
             
             dismiss(animated: true, completion: nil)
