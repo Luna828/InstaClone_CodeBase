@@ -1,9 +1,11 @@
 import SnapKit
 import UIKit
 
-class ProfileViewController: UIViewController, ProfileImageViewDelegate {
+class ProfileViewController: UIViewController {
     let profilePageView = ProfilePageView()
     let imagePicker = UIImagePickerController()
+    
+    var viewModel = ProfileViewModel()
     
     override func loadView() {
         view = profilePageView
@@ -12,22 +14,27 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        // Local 변수 설정
+        let imageView = profilePageView.profileImageView
+        let labelView = profilePageView.profileLabelView
+        let descriptionView = profilePageView.descriptionView
+        
         customNavigationBarButtons()
-        profilePageView.profileImageView.setupGesture()
-        [profilePageView.profileLabelView.followerNumberLabel, profilePageView.profileLabelView.followingNumberLabel].forEach { $0?.text = "\(Int.random(in: 100 ... 300))" }
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didSelectProfileImage))
+        imageView.profileImageView.addGestureRecognizer(tapGesture)
+        imageView.profileImageView.isUserInteractionEnabled = true
+        imageView.changeImageButton.addTarget(self, action: #selector(didSelectProfileImage), for: .touchUpInside)
+        labelView.followerNumberLabel.text = String(viewModel.followerCount)
+        labelView.followingNumberLabel.text = String(viewModel.followingCount)
         
         let websiteLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(websiteClicked))
-        profilePageView.descriptionView.websiteLabel.addGestureRecognizer(websiteLabelTapGesture)
-        profilePageView.descriptionView.websiteLabel.isUserInteractionEnabled = true
-        
-        //
-        profilePageView.profileImageView.delegate = self
+        descriptionView.websiteLabel.addGestureRecognizer(websiteLabelTapGesture)
+        descriptionView.websiteLabel.isUserInteractionEnabled = true
     }
     
     @objc func websiteClicked() {
-        if let websiteURLString = profilePageView.descriptionView.websiteLabel.text, let url = URL(string: websiteURLString) {
-            UIApplication.shared.open(url)
-        }
+        viewModel.websiteClicked(websiteURLString: profilePageView.descriptionView.websiteLabel.text)
     }
 }
 
@@ -66,20 +73,23 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func didSelectProfileImage() {
+    @objc func didSelectProfileImage() {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        
+
         present(imagePicker, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let imageView = profilePageView.profileImageView
+            let postView = profilePageView.postView
+            let labelView = profilePageView.profileLabelView
             // 프로필 이미지 업데이트
-            profilePageView.profileImageView.profileImageView.image = selectedImage
-            profilePageView.postView.profileViewModel.postFeed.insert(selectedImage, at: 0)
-            profilePageView.profileLabelView.postNumberLabel.text = String(profilePageView.postView.profileViewModel.postFeed.count)
-            profilePageView.postView.postsCollectionView.reloadData()
+            imageView.profileImageView.image = selectedImage
+            postView.profileViewModel.postFeed.insert(selectedImage, at: 0)
+            labelView.postNumberLabel.text = String(postView.profileViewModel.postCount)
+            postView.postsCollectionView.reloadData()
             
             dismiss(animated: true, completion: nil)
         }

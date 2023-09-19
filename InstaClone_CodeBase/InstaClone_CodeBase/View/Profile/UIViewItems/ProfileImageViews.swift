@@ -1,13 +1,7 @@
 import SnapKit
 import UIKit
 
-protocol ProfileImageViewDelegate: AnyObject {
-    func didSelectProfileImage()
-}
-
 final class ProfileImageViews: UIView {
-    weak var delegate: ProfileImageViewDelegate?
-
     // 프로필 이미지 뷰
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +17,6 @@ final class ProfileImageViews: UIView {
     lazy var changeImageButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        btn.addTarget(self, action: #selector(profileImageTapped), for: .touchUpInside)
         btn.customeButton(
             tintColor: .systemBlue,
             clipsToBounds: true,
@@ -31,20 +24,7 @@ final class ProfileImageViews: UIView {
         )
         return btn
     }()
-
-    //프로필 이미지에 제스처 설정
-    func setupGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
-        profileImageView.addGestureRecognizer(tapGesture)
-        profileImageView.isUserInteractionEnabled = true
-    }
-    
 //======================================== 함수 및 AutoLayout 구현 ========================================
-    
-    //제스처 클릭 함수실행
-    @objc func profileImageTapped() {
-        delegate?.didSelectProfileImage()
-    }
     
     private func setupConstraints() {
         addSubview(profileImageView)
