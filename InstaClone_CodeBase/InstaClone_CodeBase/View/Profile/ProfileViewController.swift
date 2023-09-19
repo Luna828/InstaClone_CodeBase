@@ -14,9 +14,20 @@ class ProfileViewController: UIViewController, ProfileImageViewDelegate {
         view.backgroundColor = .systemBackground
         customNavigationBarButtons()
         profilePageView.profileImageView.setupGesture()
-        [profilePageView.profileLabelView.followerNumberLabel,profilePageView.profileLabelView.followingNumberLabel].forEach { $0?.text = "\(Int.random(in: 100 ... 300))" }
+        [profilePageView.profileLabelView.followerNumberLabel, profilePageView.profileLabelView.followingNumberLabel].forEach { $0?.text = "\(Int.random(in: 100 ... 300))" }
+        
+        let websiteLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(websiteClicked))
+        profilePageView.descriptionView.websiteLabel.addGestureRecognizer(websiteLabelTapGesture)
+        profilePageView.descriptionView.websiteLabel.isUserInteractionEnabled = true
+        
         //
         profilePageView.profileImageView.delegate = self
+    }
+    
+    @objc func websiteClicked() {
+        if let websiteURLString = profilePageView.descriptionView.websiteLabel.text, let url = URL(string: websiteURLString) {
+            UIApplication.shared.open(url)
+        }
     }
 }
 
