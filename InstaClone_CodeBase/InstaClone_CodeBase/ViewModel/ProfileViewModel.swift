@@ -13,9 +13,4 @@ struct ProfileViewModel {
             UIApplication.shared.open(url)
         }
     }
-    
-    func didSelectProfileImage(){
-        imagePickerAction?()
-    }
- 
 }

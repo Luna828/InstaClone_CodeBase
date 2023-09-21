@@ -3,9 +3,7 @@ import UIKit
 
 class TodoViewController: UIViewController {
     private var tableView: UITableView!
-    private let sectionNames = ["Work", "Life"]
-    var todo: Todo?
-
+    private var viewModel = TodoViewModel()
     let dateFormatter = DateFormat().formatter
 
     override func viewDidLoad() {
@@ -31,10 +29,14 @@ class TodoViewController: UIViewController {
 
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoTableCell")
 
-        for sectionName in sectionNames {
-            TodoService.shared.fetchTodo(for: sectionName)
+        // 뷰모델의 todoList 변경 시 테이블 뷰를 다시 로드
+        viewModel.todoListDidChange = { [weak self] in
+            self?.tableView.reloadData()
         }
-        tableView.reloadData()
+
+        for sectionName in viewModel.sectionNames {
+            viewModel.fetchTodos(for: sectionName)
+        }
     }
 
     @objc func addButtonTapped() {
@@ -44,27 +46,14 @@ class TodoViewController: UIViewController {
             textField.placeholder = "오늘의 Todo를 입력해주세요"
         }
 
-        let availableSections = ["Work", "Life"]
+        let availableSections = viewModel.sectionNames
 
         for section in availableSections {
-            alertController.addAction(UIAlertAction(title: section, style: .default) { _ in
+            alertController.addAction(UIAlertAction(title: section, style: .default) { [weak self] _ in
                 if let contentField = alertController.textFields?.first,
                    let content = contentField.text
                 {
-                    if content.isEmpty {
-                        let alertEmpty = UIAlertController(title: "할일을 작성해주세요", message: nil, preferredStyle: .alert)
-                        alertEmpty.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                        self.present(alertEmpty, animated: true, completion: nil)
-                    } else {
-                        // CoreData 연결부분
-                        let newTodo = Todo(context: TodoService.shared.mainContext)
-                        newTodo.content = content
-                        TodoService.shared.addNewTodo(newTodo, to: section)
-                        print(section)
-                        print(TodoService.shared.todoList)
-                        TodoService.shared.fetchTodo(for: section)
-                        self.tableView.reloadData()
-                    }
+                    self?.viewModel.addNewTodo(content: content, to: section)
                 }
             })
         }
@@ -77,22 +66,22 @@ class TodoViewController: UIViewController {
 
 extension TodoViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionNames.count
+        return viewModel.sectionNames.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionNames[section]
+        return viewModel.sectionNames[section]
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionName = sectionNames[section]
-        return TodoService.shared.todoList.filter { $0.section == sectionName }.count
+        let sectionName = viewModel.sectionNames[section]
+        return viewModel.todoService.todoList.filter { $0.section == sectionName }.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoTableCell", for: indexPath) as! TodoTableViewCell
-        let sectionName = sectionNames[indexPath.section]
-        let todos = TodoService.shared.todoList.filter { $0.section == sectionName }
+        let sectionName = viewModel.sectionNames[indexPath.section]
+        let todos = viewModel.todoService.todoList.filter { $0.section == sectionName }
 
         if indexPath.row < todos.count {
             let todo = todos[indexPath.row]
@@ -118,7 +107,7 @@ extension TodoViewController: UITableViewDataSource {
             return
         }
 
-        let sectionName = sectionNames[indexPath.section]
+        let sectionName = viewModel.sectionNames[indexPath.section]
         let todosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
 
         if indexPath.row < todosInSection.count {
@@ -137,11 +126,11 @@ extension TodoViewController: UITableViewDataSource {
         headerView.backgroundColor = .white
 
         let titleLabel = UILabel(frame: headerView.bounds)
-        titleLabel.customLabel(text: sectionNames[section], textColor: .black, font: UIFont.systemFont(ofSize: 20, weight: .bold))
+        titleLabel.customLabel(text: viewModel.sectionNames[section], textColor: .black, font: UIFont.systemFont(ofSize: 20, weight: .bold))
         titleLabel.textAlignment = .left
-        
+
         headerView.addSubview(titleLabel)
-        
+
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(headerView).offset(16)
             make.trailing.equalTo(headerView).offset(-16)
@@ -158,7 +147,7 @@ extension TodoViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let sectionName = sectionNames[indexPath.section]
+            let sectionName = viewModel.sectionNames[indexPath.section]
             let selectedTodosInSection = TodoService.shared.todoList.filter { $0.section == sectionName }
             guard indexPath.row < selectedTodosInSection.count else {
                 return
@@ -182,7 +171,7 @@ extension TodoViewController: UITableViewDataSource {
 
 extension TodoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sectionName = sectionNames[indexPath.section]
+        let sectionName = viewModel.sectionNames[indexPath.section]
         let selectedTodos = TodoService.shared.todoList.filter { $0.section == sectionName }
 
         if indexPath.row < selectedTodos.count {
