@@ -24,6 +24,10 @@
    - 페이지네이션 고려 ❌ ✅
    - Simulator 기본 이미지들만도 OKAY ✅
 ## 앱 구조
+![스크린샷 2023-09-21 오후 12 13 28](https://github.com/Luna828/InstaClone_CodeBase/assets/93186591/35bdcab1-e229-45b8-b883-d5a8950fc1f6)
+
+
+## UI화면
 
 <table>
    <tr>
@@ -56,7 +60,6 @@
    </tr>
 </table>
 
-## UI화면
 
 ## 사용 라이브러리
 ```text
