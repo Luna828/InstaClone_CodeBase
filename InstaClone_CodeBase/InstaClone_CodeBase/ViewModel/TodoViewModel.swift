@@ -1,14 +1,23 @@
-//
-//  TodoViewModel.swift
-//  InstaClone_CodeBase
-//
-//  Created by t2023-m0050 on 2023/09/13.
-//
-
 import Foundation
 
 class TodoViewModel {
-    //데이터 모델 붙여넣기
+    let todoService = TodoService.shared
+    var sectionNames: [String] = ["Work", "Life"]
     
+    var todoListDidChange: (() -> Void)?
     
+    func fetchTodos(for sectionName: String) {
+        todoService.fetchTodo(for: sectionName)
+    }
+    
+    func addNewTodo(content: String, to sectionName: String) {
+        if content.isEmpty {
+            return
+        }
+        
+        let newTodo = Todo(context: todoService.mainContext)
+        newTodo.content = content
+        todoService.addNewTodo(newTodo, to: sectionName)
+        todoListDidChange?()
+    }
 }
