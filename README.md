@@ -60,6 +60,37 @@
    </tr>
 </table>
 
+## MVVM VS MVC 
+
+<table>
+   <tr>
+      <td width = 500>
+         MVC
+      </td>
+      <td width = 500>
+         MVVM
+      </td>
+   </tr>
+   <tr>
+      <td>
+         * 단순하고 직관적임 <br>
+         * 기능별로 코드를 분리하여, 가독성과 코드 재사용 증가
+      </td>
+      <td>
+         * view와 Model 사이의 의존성이 없음 <br>
+         * View와 ViewModel 사이의 의존성이 없음
+      </td>
+   </tr>
+   <tr>
+      <td>
+         * View와 Model 사이의 의존성이 높음 <br>
+         * 유지보수 어려움
+      </td>
+      <td>
+         * 설계가 어려움 <br>
+      </td>
+   </tr>
+</table>
 
 ## 사용 라이브러리
 ```text
